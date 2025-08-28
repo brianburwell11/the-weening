@@ -61,13 +61,21 @@ class Calendar {
             if (dayIndex >= 0 && dayIndex < days.length) {
                 // Day has data
                 const dayData = days[dayIndex];
+
+                // Handle multiple weens and weenies
+                const weenEvents = Array.isArray(dayData.ween) ? dayData.ween : [dayData.ween];
+                const weenieEvents = Array.isArray(dayData.weenie) ? dayData.weenie : [dayData.weenie];
+
+                const weenButtons = weenEvents.map(event => `<button class="ween-btn">💀 ${event}</button>`).join('');
+                const weenieButtons = weenieEvents.map(event => `<button class="weenie-btn">🎃 ${event}</button>`).join('');
+
                 cell.innerHTML = `
                     <div class="date">10/${dayData.date}/2025</div>
                     <div class="day-name">${dayData.dayOfWeek}</div>
                     <div class="content">${dayData.content}</div>
                     <div class="event-buttons">
-                        <button class="ween-btn">${dayData.ween}</button>
-                        <button class="weenie-btn">${dayData.weenie}</button>
+                        ${weenButtons}
+                        ${weenieButtons}
                     </div>
                 `;
             } else {

@@ -246,8 +246,8 @@
       "date": "31",
       "dayOfWeek": "Fri",
       "content": "HAPPY HALLOWEEN!",
-      "ween": "Halloween",
-      "weenie": "Trick or Treat"
+      "ween": ["Halloween", "Costume Contest"],
+      "weenie": ["Trick or Treat", "Candy Collection"]
     }
   ]
 }

@@ -1,4 +1,9 @@
 /* Calendar Section */
+:root {
+    --ween-color: #bf5b0e;
+    --weenie-color: #ff9442;
+}
+
 .calendar-section {
     min-height: 100vh;
     background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
@@ -57,8 +62,8 @@
 }
 
 .calendar-header-cell {
-    background: var(--primary-color);
-    color: var(--text-primary);
+    background: #0b0512;
+    color: #ffffff;
     padding: 1rem;
     text-align: center;
     font-weight: 600;
@@ -126,7 +131,6 @@
 
 .ween-btn,
 .weenie-btn {
-    background: var(--primary-color);
     color: var(--text-primary);
     border: none;
     padding: 0.5rem 0.75rem;
@@ -139,19 +143,24 @@
     letter-spacing: 0.5px;
 }
 
-.ween-btn:hover,
-.weenie-btn:hover {
-    background: rgba(99, 102, 241, 0.8);
+.ween-btn {
+    background: var(--ween-color);
+}
+
+.ween-btn:hover {
+    background: #d46a0f;
     transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 4px 8px rgba(191, 91, 14, 0.4);
 }
 
 .weenie-btn {
-    background: rgba(99, 102, 241, 0.7);
+    background: var(--weenie-color);
 }
 
 .weenie-btn:hover {
-    background: rgba(99, 102, 241, 0.6);
+    background: #ffa052;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(255, 148, 66, 0.4);
 }
 
 /* Responsive Design */
