@@ -1,0 +1,253 @@
+{
+  "month": "October 2025",
+  "days": [
+    {
+      "day": 1,
+      "date": "1",
+      "dayOfWeek": "Wed",
+      "content": "Halloween month begins!",
+      "ween": "Spooky Season",
+      "weenie": "Pumpkin Carving"
+    },
+    {
+      "day": 2,
+      "date": "2",
+      "dayOfWeek": "Thu",
+      "content": "Decorating day",
+      "ween": "Decorations",
+      "weenie": "Spider Webs"
+    },
+    {
+      "day": 3,
+      "date": "3",
+      "dayOfWeek": "Fri",
+      "content": "Pumpkin carving prep",
+      "ween": "Pumpkins",
+      "weenie": "Carving Tools"
+    },
+    {
+      "day": 4,
+      "date": "4",
+      "dayOfWeek": "Sat",
+      "content": "Costume planning",
+      "ween": "Costumes",
+      "weenie": "Accessories"
+    },
+    {
+      "day": 5,
+      "date": "5",
+      "dayOfWeek": "Sun",
+      "content": "Haunted house setup",
+      "ween": "Haunted House",
+      "weenie": "Fog Machine"
+    },
+    {
+      "day": 6,
+      "date": "6",
+      "dayOfWeek": "Mon",
+      "content": "Candy shopping",
+      "ween": "Candy",
+      "weenie": "Chocolate"
+    },
+    {
+      "day": 7,
+      "date": "7",
+      "dayOfWeek": "Tue",
+      "content": "Movie night prep",
+      "ween": "Movies",
+      "weenie": "Popcorn"
+    },
+    {
+      "day": 8,
+      "date": "8",
+      "dayOfWeek": "Wed",
+      "content": "Ghost stories",
+      "ween": "Stories",
+      "weenie": "Flashlights"
+    },
+    {
+      "day": 9,
+      "date": "9",
+      "dayOfWeek": "Thu",
+      "content": "Witch hat crafting",
+      "ween": "Crafts",
+      "weenie": "Glitter"
+    },
+    {
+      "day": 10,
+      "date": "10",
+      "dayOfWeek": "Fri",
+      "content": "Spider web making",
+      "ween": "Decorations",
+      "weenie": "Cotton"
+    },
+    {
+      "day": 11,
+      "date": "11",
+      "dayOfWeek": "Sat",
+      "content": "Bats and cats",
+      "ween": "Animals",
+      "weenie": "Pet Costumes"
+    },
+    {
+      "day": 12,
+      "date": "12",
+      "dayOfWeek": "Sun",
+      "content": "Full moon night",
+      "ween": "Moon",
+      "weenie": "Telescope"
+    },
+    {
+      "day": 13,
+      "date": "13",
+      "dayOfWeek": "Mon",
+      "content": "Friday the 13th!",
+      "ween": "Unlucky",
+      "weenie": "Black Cats"
+    },
+    {
+      "day": 14,
+      "date": "14",
+      "dayOfWeek": "Tue",
+      "content": "Witch's brew",
+      "ween": "Brew",
+      "weenie": "Cauldron"
+    },
+    {
+      "day": 15,
+      "date": "15",
+      "dayOfWeek": "Wed",
+      "content": "Halfway to Halloween",
+      "ween": "Midpoint",
+      "weenie": "Countdown"
+    },
+    {
+      "day": 16,
+      "date": "16",
+      "dayOfWeek": "Thu",
+      "content": "Vampire night",
+      "ween": "Vampires",
+      "weenie": "Fangs"
+    },
+    {
+      "day": 17,
+      "date": "17",
+      "dayOfWeek": "Fri",
+      "content": "Zombie walk prep",
+      "ween": "Zombies",
+      "weenie": "Makeup"
+    },
+    {
+      "day": 18,
+      "date": "18",
+      "dayOfWeek": "Sat",
+      "content": "Monster mash",
+      "ween": "Dance",
+      "weenie": "Music"
+    },
+    {
+      "day": 19,
+      "date": "19",
+      "dayOfWeek": "Sun",
+      "content": "Werewolf howling",
+      "ween": "Werewolves",
+      "weenie": "Howling"
+    },
+    {
+      "day": 20,
+      "date": "20",
+      "dayOfWeek": "Mon",
+      "content": "Ghost hunting",
+      "ween": "Ghosts",
+      "weenie": "EVP Recorder"
+    },
+    {
+      "day": 21,
+      "date": "21",
+      "dayOfWeek": "Tue",
+      "content": "Mummy wrapping",
+      "ween": "Mummies",
+      "weenie": "Bandages"
+    },
+    {
+      "day": 22,
+      "date": "22",
+      "dayOfWeek": "Wed",
+      "content": "Frankenstein's lab",
+      "ween": "Science",
+      "weenie": "Lightning"
+    },
+    {
+      "day": 23,
+      "date": "23",
+      "dayOfWeek": "Thu",
+      "content": "Black cat day",
+      "ween": "Cats",
+      "weenie": "Catnip"
+    },
+    {
+      "day": 24,
+      "date": "24",
+      "dayOfWeek": "Fri",
+      "content": "Pumpkin patch visit",
+      "ween": "Pumpkins",
+      "weenie": "Hay Ride"
+    },
+    {
+      "day": 25,
+      "date": "25",
+      "dayOfWeek": "Sat",
+      "content": "Costume fitting",
+      "ween": "Costumes",
+      "weenie": "Mirror"
+    },
+    {
+      "day": 26,
+      "date": "26",
+      "dayOfWeek": "Sun",
+      "content": "Haunted hayride",
+      "ween": "Hayride",
+      "weenie": "Scarecrows"
+    },
+    {
+      "day": 27,
+      "date": "27",
+      "dayOfWeek": "Mon",
+      "content": "Candy corn day",
+      "ween": "Candy",
+      "weenie": "Corn Syrup"
+    },
+    {
+      "day": 28,
+      "date": "28",
+      "dayOfWeek": "Tue",
+      "content": "Final decorations",
+      "ween": "Decorations",
+      "weenie": "Lights"
+    },
+    {
+      "day": 29,
+      "date": "29",
+      "dayOfWeek": "Wed",
+      "content": "Trick or treat prep",
+      "ween": "Preparation",
+      "weenie": "Bags"
+    },
+    {
+      "day": 30,
+      "date": "30",
+      "dayOfWeek": "Thu",
+      "content": "Halloween eve",
+      "ween": "Eve",
+      "weenie": "Anticipation"
+    },
+    {
+      "day": 31,
+      "date": "31",
+      "dayOfWeek": "Fri",
+      "content": "HAPPY HALLOWEEN!",
+      "ween": "Halloween",
+      "weenie": "Trick or Treat"
+    }
+  ]
+}
