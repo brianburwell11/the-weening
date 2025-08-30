@@ -1,0 +1,27 @@
+---
+layout: base.liquid
+title: The 'Weening
+---
+<section class="hero">
+    <div class="hero-container">
+        <div class="hero-content">
+            <img src="/assets/img/weening-logo.png" alt="The 'Weening Logo" class="weening-logo" id="weening-logo">
+        </div>
+    </div>
+</section>
+
+<script>
+    // Get the logo element
+    const logo = document.getElementById('weening-logo');
+
+    // Create audio element
+    const audio = new Audio('/assets/audio/thriller-laugh.mp3');
+
+    // Add click event listener
+    logo.addEventListener('click', function () {
+        // Play the audio
+        audio.play().catch(function (error) {
+            console.log('Audio playback failed:', error);
+        });
+    });
+</script>

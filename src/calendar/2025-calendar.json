@@ -1,0 +1,14 @@
+{
+    "year": 2025,
+    "starting_weekday": 3,
+    "days": {
+        "1": {
+            "weens": ["imdb1"],
+            "weenies": ["imdb2"]
+        },
+        "2": {
+            "weens": ["imdb3"],
+            "weenies": ["imdb4"]
+        }
+    }
+}
