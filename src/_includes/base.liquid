@@ -1,12 +1,15 @@
 ---
 title: The 'Weening
+css:
 ---
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>
+      {% if movie %}{{ movie.id }}{% else %}{{ title }}{% endif %}
+    </title>
     <meta name="description" content="The Weening">
     <meta name="author" content="The Weening">
 
@@ -19,7 +22,9 @@ title: The 'Weening
 
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/base.css">
-    <link rel="stylesheet" href="/assets/css/{{ css }}">
+    {% if css %}
+      <link rel="stylesheet" href="/assets/css/{{ css }}">
+    {% endif %}
   </head>
 
   <body>

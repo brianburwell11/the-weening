@@ -1,0 +1,231 @@
+---
+layout: base.liquid
+---
+<div class="movie-container">
+  <div class="movie-content">
+    <div class="movie-poster">
+      <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster">
+    </div>
+    <div class="movie-details">
+      <h1 class="movie-title">{{ movie.title }}</h1>
+      {% if movie.tagline != blank%}
+        <div class="movie-tagline">{{ movie.tagline }}</div>
+      {% endif %}
+      <div class="movie-metadata">
+        <span class="release-date">{% if movie['release-year'] == "2025" %}🎉{% endif %}{{ movie['release-year'] }}{% if movie['release-year'] == "2025" %}🎉{% endif %}</span>
+        <span class="runtime">{{ movie.runtime }}</span>
+      </div>
+
+      <div class="movie-overview">
+        <p>{{ movie.plot }}</p>
+      </div>
+
+      {% if movie.notes %}
+      <div class="movie-notes">
+        <p>{{ movie.notes }}</p>
+      </div>
+      {% endif %}
+
+      {% if movie.trailer %}
+      {% assign trailer_id = movie.trailer | split: "?v=" | last %}
+      <div class="movie-trailer" style="display: flex; justify-content: center;">
+        <iframe width="490" height="315" src="https://www.youtube.com/embed/{{ trailer_id }}" title="{{ movie.title }} Trailer" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      {% endif %}
+
+      <div class="movie-actions">
+        <a href="https://www.imdb.com/title/{{ movie.imdb }}" target="_blank">
+          <div class="action-button-container">
+            <button class="action-button">🎥</button>
+            <span class="action-label">View on IMDb</span>
+          </div>
+        </a>
+
+        {% if movie['scary-meter'] != blank %}
+          <a href="https://scarymeter.com/movie/{{ movie.tmdb }}" target="_blank">
+            <div class="action-button-container">
+              <button class="action-button">
+                {{ movie['scary-meter'] }}
+              </button>
+              <span class="action-label">Scary Meter</span>
+            </div>
+          </a>
+        {% endif %}
+
+        {% if movie['fandango'] != blank %}
+          <a href="{{ movie['fandango'] }}" target="_blank">
+            <div class="action-button-container">
+              <button class="action-button">🎟️</button>
+              <span class="action-label">Get Tickets</span>
+            </div>
+          </a>
+        {% endif %}
+
+      <style></style>
+    </div>
+  </div>
+</div>
+
+<style>
+  .movie-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    min-height: 100vh;
+    color: white;
+  }
+
+  .movie-content {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .movie-poster {
+    flex: 0 0 auto;
+    position: relative;
+  }
+
+  .movie-poster img {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  }
+
+  .movie-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .movie-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+    line-height: 1.2;
+  }
+
+  .movie-metadata {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-size: 1rem;
+    color: #cccccc;
+  }
+
+  .movie-metadata span {
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .action-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+  }
+
+  .action-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+
+  .play-btn {
+    border-radius: 24px;
+    width: auto;
+    padding: 0 20px;
+    gap: 8px;
+  }
+
+  .btn-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .movie-tagline {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #cccccc;
+  }
+
+  .movie-overview h3,
+  .movie-credits h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: white;
+  }
+
+  .movie-overview p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+    margin: 0;
+  }
+
+  .movie-actions {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    max-width: 500px;
+  }
+
+  .action-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .action-button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .action-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+  }
+
+  .action-label {
+    font-size: 0.9rem;
+    color: #cccccc;
+  }
+
+  @media (max-width: 768px) {
+    .movie-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .movie-poster img {
+      width: 250px;
+    }
+  }
+</style>

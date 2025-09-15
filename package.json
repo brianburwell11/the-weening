@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/brianburwell11/the-weening#readme",
   "dependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "^3.1.2",
+    "csv-parse": "^6.1.0"
   }
 }
