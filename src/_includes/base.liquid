@@ -22,8 +22,11 @@ css:
 
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/modal.css">
     {% if css %}
-      <link rel="stylesheet" href="/assets/css/{{ css }}">
+      {% for stylesheet in css %}
+        <link rel="stylesheet" href="/assets/css/{{ stylesheet }}">
+      {% endfor %}
     {% endif %}
   </head>
 
@@ -33,5 +36,6 @@ css:
     </main>
 
     {{ scripts }}
+    <script src="/assets/js/modal.js"></script>
   </body>
 </html>

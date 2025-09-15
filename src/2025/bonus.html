@@ -1,0 +1,28 @@
+---
+layout: base.liquid
+title: 2025 Bonus Weens
+css:
+- movie-grid.css
+---
+<h1>2025 Bonus Weens</h1>
+
+<div class="movies-grid">
+    {% for movie in weening2025 %}
+    {% if movie.type == "Bonus" %}
+    <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card">
+        <div class="movie-poster">
+            <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster">
+        </div>
+        <div class="movie-info">
+            <h2 class="movie-title">{{ movie.title }}</h2>
+            <div class="movie-metadata">
+                <span class="release-date">{% if movie['release-year']
+                    == "2025" %}🎉{% endif %}{{ movie['release-year']
+                    }}{% if movie['release-year'] == "2025" %}🎉{% endif %}</span>
+                <span class="runtime">{{ movie.runtime }}</span>
+            </div>
+        </div>
+    </a>
+    {% endif %}
+    {% endfor %}
+</div>
