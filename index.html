@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/countdown.css">
 </head>
 
 <body>
@@ -25,8 +26,33 @@
         <section class="hero">
             <div class="hero-container">
                 <div class="hero-content">
-                    <img src="assets/images/weening-logo.png" alt="The Weening Logo" class="weening-logo"
-                        id="weening-logo">
+                    <div class="logo-container">
+                        <img src="assets/images/weening-logo.png" alt="The Weening Logo" class="weening-logo"
+                            id="weening-logo">
+
+                        <!-- Countdown Timer -->
+                        <div class="countdown-container">
+                            <h2 class="countdown-title">The 'Weening calendar releases in</h2>
+                            <div class="countdown-timer" id="countdown-timer">
+                                <div class="time-unit">
+                                    <span class="time-value" id="days">0</span>
+                                    <span class="time-label">Days</span>
+                                </div>
+                                <div class="time-unit">
+                                    <span class="time-value" id="hours">0</span>
+                                    <span class="time-label">Hours</span>
+                                </div>
+                                <div class="time-unit">
+                                    <span class="time-value" id="minutes">0</span>
+                                    <span class="time-label">Minutes</span>
+                                </div>
+                                <div class="time-unit">
+                                    <span class="time-value" id="seconds">0</span>
+                                    <span class="time-label">Seconds</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -46,6 +72,41 @@
                 console.log('Audio playback failed:', error);
             });
         });
+
+        // Countdown Timer Functionality
+        function updateCountdown() {
+            // Target date: September 27, 2025 at 10:30 AM EST
+            const targetDate = new Date('2025-09-27T10:30:00-04:00'); // EST is UTC-4
+            const now = new Date();
+            const timeDifference = targetDate - now;
+
+            if (timeDifference > 0) {
+                // Calculate time units
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                // Update the display
+                document.getElementById('days').textContent = days.toString();
+                document.getElementById('hours').textContent = hours.toString();
+                document.getElementById('minutes').textContent = minutes.toString();
+                document.getElementById('seconds').textContent = seconds.toString();
+            } else {
+                // Countdown has reached zero
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+
+                // Optional: Show a message when countdown reaches zero
+                document.querySelector('.countdown-title').textContent = 'The Weening Has Begun!';
+            }
+        }
+
+        // Initialize countdown and update every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 
