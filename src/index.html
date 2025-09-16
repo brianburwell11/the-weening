@@ -1,14 +1,179 @@
 ---
 layout: base.liquid
 title: The 'Weening
+css:
+- movie-grid.css
 ---
 <section class="hero">
     <div class="hero-container">
         <div class="hero-content">
-            <img src="/assets/img/weening-logo.png" alt="The 'Weening Logo" class="weening-logo" id="weening-logo">
+            {% assign target_date = "2025-10-15" %}
+            {% assign day_movies = weening2025 | where: "date", target_date %}
+
+            {% if day_movies.size >= 2 %}
+            <div class="todays-movies-container">
+                <h1 class="todays-movies-title">Today's Movies</h1>
+                {% assign date_parts = target_date | split: "-" %}
+                {% assign year = date_parts[0] %}
+                {% assign month = date_parts[1] %}
+                {% assign day = date_parts[2] %}
+                {% case month %}
+                {% when "01" %}{% assign month_name = "January" %}
+                {% when "02" %}{% assign month_name = "February" %}
+                {% when "03" %}{% assign month_name = "March" %}
+                {% when "04" %}{% assign month_name = "April" %}
+                {% when "05" %}{% assign month_name = "May" %}
+                {% when "06" %}{% assign month_name = "June" %}
+                {% when "07" %}{% assign month_name = "July" %}
+                {% when "08" %}{% assign month_name = "August" %}
+                {% when "09" %}{% assign month_name = "September" %}
+                {% when "10" %}{% assign month_name = "October" %}
+                {% when "11" %}{% assign month_name = "November" %}
+                {% when "12" %}{% assign month_name = "December" %}
+                {% endcase %}
+                <h2 class="todays-movies-date">{{ month_name }} {{ day | plus: 0 }}, {{ year }}</h2>
+                <div class="todays-movies">
+                    {% for movie in day_movies limit: 2 %}
+                    <div class="todays-movie-card">
+                        <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card">
+                            <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster" class="todays-movie-poster">
+                        </a>
+                        <div class="movie-id">{{ movie.id }}</div>
+                    </div>
+                    {% endfor %}
+
+                    <div class="weening-logo-overlay">
+                        <img src="/assets/img/weening-logo.png" alt="The 'Weening Logo" class="weening-logo"
+                            id="weening-logo">
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="hero-fallback">
+                <img src="/assets/img/weening-logo.png" alt="The 'Weening Logo" class="weening-logo" id="weening-logo">
+            </div>
+            {% endif %}
         </div>
     </div>
 </section>
+
+<style>
+    .todays-movies-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .todays-movies-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.25rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    .todays-movies-date {
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .todays-movies {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 60px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .todays-movie-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .movie-poster-link {
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .movie-poster-link:hover {
+        transform: scale(1.05);
+    }
+
+    .todays-movie-poster {
+        width: 200px;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    }
+
+    .movie-id {
+        margin-top: 15px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        text-align: center;
+    }
+
+    .weening-logo-overlay {
+        position: absolute;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    }
+
+    .weening-logo {
+        max-width: 150px;
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease, filter 0.3s ease;
+        filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+    }
+
+    .weening-logo:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 8px 16px rgba(255, 255, 255, 0.3));
+    }
+
+    .hero-fallback {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hero-fallback .weening-logo {
+        max-width: 400px;
+    }
+
+    @media (max-width: 768px) {
+        .todays-movies {
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .weening-logo-overlay {
+            position: static;
+            transform: none;
+            margin-top: 20px;
+        }
+
+        .todays-movie-poster {
+            width: 150px;
+        }
+    }
+</style>
 
 <script>
     // Get the logo element
@@ -18,10 +183,12 @@ title: The 'Weening
     const audio = new Audio('/assets/audio/thriller-laugh.mp3');
 
     // Add click event listener
-    logo.addEventListener('click', function () {
-        // Play the audio
-        audio.play().catch(function (error) {
-            console.log('Audio playback failed:', error);
+    if (logo) {
+        logo.addEventListener('click', function () {
+            // Play the audio
+            audio.play().catch(function (error) {
+                console.log('Audio playback failed:', error);
+            });
         });
-    });
+    }
 </script>
