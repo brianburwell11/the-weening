@@ -3,11 +3,14 @@ layout: base.liquid
 title: The 'Weening
 css:
 - movie-grid.css
+- calendar.css
 ---
 <section class="hero">
     <div class="hero-container">
         <div class="hero-content">
-            {% assign target_date = "2025-10-28" %}
+            {% assign today = "now" | date: "%Y-%m-%d" %}
+            {% assign today = '2025-10-16' %}
+            {% assign target_date = today %}
             {% assign day_movies = weening2025 | where: "date", target_date %}
 
             {% if day_movies.size >= 2 %}
@@ -41,6 +44,10 @@ css:
         </div>
     </div>
 </section>
+
+{% include '_calendar.liquid', year: 2025, monthStartsOnWeekday: 3, subtitle: "Celebrating 5 years of Weens", dataSet:
+weening2025, customCss: '2025.css' %}
+
 
 <style>
     .todays-movies-container {

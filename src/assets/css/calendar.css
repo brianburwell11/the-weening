@@ -5,19 +5,13 @@
 }
 
 .calendar-section {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 0;
+    padding: 0;
 }
 
 .calendar-container {
     width: 100%;
-    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1rem;
 }
 
 .calendar-header {
@@ -32,23 +26,8 @@
     color: var(--text-primary);
 }
 
-.back-link {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
-}
-
-.back-link:hover {
-    color: var(--primary-color);
-}
-
 .calendar-wrapper {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 2rem;
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--border-color);
+    padding: 1rem 2rem 2rem 2rem;
 }
 
 .calendar-grid {
@@ -74,9 +53,9 @@
 
 .calendar-cell {
     background: rgba(255, 255, 255, 0.02);
-    padding: 1.5rem 1rem;
+    padding: 0.75rem 0.5rem;
     text-align: center;
-    min-height: 120px;
+    min-height: 60px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -88,6 +67,29 @@
 .calendar-cell:hover {
     background: rgba(255, 255, 255, 0.05);
     border-color: var(--primary-color);
+}
+
+.calendar-cell.today {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.calendar-cell.today .date {
+    color: var(--primary-color);
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.calendar-cell.halloween {
+    grid-column: span 2;
+}
+
+.calendar-cell.halloween .ween-btn,
+.calendar-cell.halloween .weenie-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
 }
 
 .calendar-cell.empty {
@@ -133,14 +135,16 @@
 .weenie-btn {
     color: var(--text-primary);
     border: none;
-    padding: 0.5rem 0.75rem;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 500;
+    padding: 1.25rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    width: 100%;
+    text-align: center;
 }
 
 .ween-btn {
