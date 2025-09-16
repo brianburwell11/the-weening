@@ -1,0 +1,199 @@
+---
+layout: base.liquid
+title: "'Weening Graveyard"
+---
+
+<h1 style="text-align: center;">The 'Weening Graveyard</h1>
+<h2 style="text-align: center;">Previous 'Weening Calendars</h2>
+
+<div class="calendar-grid">
+    <div class="calendar-item" data-year="2024">
+        <img src="/assets/img/weening-2024-calendar.png" alt="2024 'Weening Calendar" class="calendar-image">
+    </div>
+    <div class="calendar-item" data-year="2023">
+        <img src="/assets/img/weening-2023-calendar.png" alt="2023 'Weening Calendar" class="calendar-image">
+    </div>
+    <div class="calendar-item" data-year="2022">
+        <img src="/assets/img/weening-2022-calendar.png" alt="2022 'Weening Calendar" class="calendar-image">
+    </div>
+    <div class="calendar-item" data-year="2021">
+        <img src="/assets/img/weening-2021-calendar.png" alt="2021 'Weening Calendar" class="calendar-image">
+    </div>
+</div>
+
+<!-- Full-screen modal -->
+<div class="calendar-modal" id="calendarModal">
+    <div class="calendar-modal-content">
+        <button class="calendar-modal-close" id="calendarModalClose">&times;</button>
+        <img class="calendar-modal-image" id="calendarModalImage" src="" alt="">
+        <div class="calendar-modal-year" id="calendarModalYear"></div>
+    </div>
+</div>
+
+<style>
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+        padding: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .calendar-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .calendar-image {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .calendar-image:hover {
+        transform: scale(1.08);
+        box-shadow: 0 16px 50px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Full-screen modal */
+    .calendar-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
+        z-index: 2000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .calendar-modal.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .calendar-modal-content {
+        position: relative;
+        max-width: 95vw;
+        max-height: 95vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .calendar-modal-close {
+        position: absolute;
+        top: -50px;
+        right: 0;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        z-index: 2001;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        transition: color 0.2s ease;
+    }
+
+    .calendar-modal-close:hover {
+        color: #ccc;
+    }
+
+    .calendar-modal-image {
+        max-width: 100%;
+        max-height: 80vh;
+        width: auto;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+    }
+
+    .calendar-modal-year {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-top: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    @media (max-width: 768px) {
+        .calendar-grid {
+            grid-template-columns: 1fr;
+            padding: 1rem;
+            gap: 2rem;
+        }
+
+        .calendar-modal-content {
+            max-width: 98vw;
+            max-height: 98vh;
+        }
+
+        .calendar-modal-close {
+            top: -40px;
+            font-size: 1.5rem;
+        }
+
+        .calendar-modal-year {
+            font-size: 1.2rem;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const calendarItems = document.querySelectorAll('.calendar-item');
+        const modal = document.getElementById('calendarModal');
+        const modalImage = document.getElementById('calendarModalImage');
+        const modalYear = document.getElementById('calendarModalYear');
+        const modalClose = document.getElementById('calendarModalClose');
+
+        // Open modal when calendar item is clicked
+        calendarItems.forEach(item => {
+            item.addEventListener('click', function () {
+                const img = this.querySelector('.calendar-image');
+                const year = this.getAttribute('data-year');
+
+                modalImage.src = img.src;
+                modalImage.alt = img.alt;
+                modalYear.textContent = year + " 'Weening Calendar";
+
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close modal when close button is clicked
+        modalClose.addEventListener('click', function () {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Close modal when clicking outside the image
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    });
+</script>
