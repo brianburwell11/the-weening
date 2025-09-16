@@ -28,8 +28,8 @@ layout: base.liquid
 
       {% if movie.trailer %}
       {% assign trailer_id = movie.trailer | split: "?v=" | last %}
-      <div class="movie-trailer" style="display: flex; justify-content: center;">
-        <iframe width="490" height="315" src="https://www.youtube.com/embed/{{ trailer_id }}" title="{{ movie.title }} Trailer" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <div class="movie-trailer">
+        <iframe width="513" height="300" src="https://www.youtube.com/embed/{{ trailer_id }}" title="{{ movie.title }} Trailer" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
       {% endif %}
 
@@ -217,6 +217,12 @@ layout: base.liquid
     color: #cccccc;
   }
 
+  .movie-trailer {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
   @media (max-width: 768px) {
     .movie-content {
       flex-direction: column;
@@ -226,6 +232,22 @@ layout: base.liquid
 
     .movie-poster img {
       width: 250px;
+    }
+
+    .movie-metadata {
+      justify-content: center;
+    }
+
+    .movie-trailer {
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    .movie-trailer iframe {
+      width: 100vw;
+      height: 56.25vw; /* 16:9 aspect ratio */
+      max-height: 315px;
+      margin-left: calc(-50vw + 50%);
     }
   }
 </style>
