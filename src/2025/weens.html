@@ -6,7 +6,7 @@ css:
 ---
 <div class="movies-grid">
     {% for movie in weening2025 %}
-    {% if movie.type == "Ween" %}
+        {% if movie.type == "Ween" %}
     <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card">
         <div class="movie-poster">
             <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster">
