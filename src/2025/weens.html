@@ -4,10 +4,45 @@ title: 2025 Weens
 css:
 - movie-grid.css
 ---
+
+<h1 class="sticky-header">
+    <span class="header-content">
+        <img src="/assets/img/weening-skull.png" alt="trick" class="title-icon">
+        2025 Weens
+    </span>
+</h1>
+
+<style>
+    .sticky-header {
+        text-align: center;
+        position: sticky;
+        top: 64px;
+        margin: 0;
+        z-index: 100;
+    }
+
+    .header-content {
+        background: linear-gradient(to bottom, var(--background-color) 0%, rgba(var(--background-color-rgb), 0.8) 50%, rgba(var(--background-color-rgb), 0.6) 100%);
+        backdrop-filter: blur(0px) blur(15px) blur(0px);
+        -webkit-backdrop-filter: blur(0px) blur(15px) blur(0px);
+        padding: 1rem;
+        display: inline-block;
+    }
+
+    .title-icon {
+        height: 1.5em;
+        vertical-align: top;
+    }
+</style>
 <div class="movies-grid">
     {% for movie in weening2025 %}
-        {% if movie.type == "Ween" %}
+    {% if movie.type == "Ween" %}
     <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card">
+        <div class="screening-date">
+            {% assign date_parts = movie.date | split: "-" %}
+            {% assign day = date_parts[2] | plus: 0 %}
+            Oct {{ day }}
+        </div>
         <div class="movie-poster">
             <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster">
         </div>

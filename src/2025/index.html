@@ -6,7 +6,13 @@ css:
 ---
 <div class="movies-grid">
     {% for movie in weening2025 %}
+    {% if movie.type != "Bonus" %}
     <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card">
+        <div class="screening-date">
+            {% assign date_parts = movie.date | split: "-" %}
+            {% assign day = date_parts[2] | plus: 0 %}
+            Oct {{ day }}
+        </div>
         <div class="movie-poster">
             <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster">
         </div>
@@ -20,5 +26,6 @@ css:
             </div>
         </div>
     </a>
+    {% endif %}
     {% endfor %}
 </div>
