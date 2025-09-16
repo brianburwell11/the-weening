@@ -2,6 +2,7 @@ module.exports = function (eleventyConfig) {
     const { parse } = require('csv-parse/sync');
 
     eleventyConfig.addPassthroughCopy("src/assets");
+    eleventyConfig.addPassthroughCopy("_redirects");
     eleventyConfig.addDataExtension("csv", (contents) => {
         const records = parse(contents, {
             columns: true,
