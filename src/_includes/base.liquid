@@ -31,7 +31,9 @@ css:
   </head>
 
   <body>
-    {% include '_header.liquid' %}
+    {% unless movie %}
+      {% include '_header.liquid' %}
+    {% endunless %}
     <main>
       {{ content }}
     </main>

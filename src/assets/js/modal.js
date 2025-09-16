@@ -78,6 +78,7 @@ class MovieModal {
 
         // Show modal
         this.modal.classList.add('active');
+        document.body.classList.add('modal-active');
         document.body.style.overflow = 'hidden'; // Prevent background scrolling
 
         // Load content in iframe
@@ -98,6 +99,7 @@ class MovieModal {
     closeModal() {
         // Hide modal
         this.modal.classList.remove('active');
+        document.body.classList.remove('modal-active');
         document.body.style.overflow = ''; // Restore scrolling
 
         // Clear iframe source after animation
