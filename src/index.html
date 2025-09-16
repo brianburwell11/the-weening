@@ -7,7 +7,7 @@ css:
 <section class="hero">
     <div class="hero-container">
         <div class="hero-content">
-            {% assign target_date = "2025-10-15" %}
+            {% assign target_date = "2025-10-28" %}
             {% assign day_movies = weening2025 | where: "date", target_date %}
 
             {% if day_movies.size >= 2 %}
@@ -15,23 +15,8 @@ css:
                 <h1 class="todays-movies-title">Today's Movies</h1>
                 {% assign date_parts = target_date | split: "-" %}
                 {% assign year = date_parts[0] %}
-                {% assign month = date_parts[1] %}
                 {% assign day = date_parts[2] %}
-                {% case month %}
-                {% when "01" %}{% assign month_name = "January" %}
-                {% when "02" %}{% assign month_name = "February" %}
-                {% when "03" %}{% assign month_name = "March" %}
-                {% when "04" %}{% assign month_name = "April" %}
-                {% when "05" %}{% assign month_name = "May" %}
-                {% when "06" %}{% assign month_name = "June" %}
-                {% when "07" %}{% assign month_name = "July" %}
-                {% when "08" %}{% assign month_name = "August" %}
-                {% when "09" %}{% assign month_name = "September" %}
-                {% when "10" %}{% assign month_name = "October" %}
-                {% when "11" %}{% assign month_name = "November" %}
-                {% when "12" %}{% assign month_name = "December" %}
-                {% endcase %}
-                <h2 class="todays-movies-date">{{ month_name }} {{ day | plus: 0 }}, {{ year }}</h2>
+                <h2 class="todays-movies-date">October {{ day }}, {{ year }}</h2>
                 <div class="todays-movies">
                     {% for movie in day_movies limit: 2 %}
                     <div class="todays-movie-card">
@@ -90,7 +75,7 @@ css:
         align-items: flex-start;
         gap: 60px;
         max-width: 900px;
-        margin: 0 auto;
+        margin: 0 10px;
     }
 
     .todays-movie-card {
@@ -126,7 +111,7 @@ css:
 
     .weening-logo-overlay {
         position: absolute;
-        bottom: 5%;
+        bottom: 35px;
         left: 50%;
         transform: translateX(-50%);
         z-index: 10;
@@ -157,20 +142,43 @@ css:
     }
 
     @media (max-width: 768px) {
-        .todays-movies {
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
+        .todays-movies-title {
+            font-size: 2rem;
+            margin-bottom: 0.25rem;
         }
 
-        .weening-logo-overlay {
-            position: static;
-            transform: none;
-            margin-top: 20px;
+        .todays-movies-date {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .todays-movies {
+            gap: 20px;
+            max-width: 100%;
+            padding: 0 5px;
+        }
+
+        .todays-movie-card {
+            flex: 1;
+            max-width: none;
         }
 
         .todays-movie-poster {
             width: 150px;
+            max-width: 45vw;
+        }
+
+        .movie-id {
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        .weening-logo-overlay {
+            bottom: 45px;
+        }
+
+        .weening-logo {
+            max-width: 100px;
         }
     }
 </style>
