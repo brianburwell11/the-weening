@@ -43,16 +43,33 @@ body {
 
 /* Calendar styles */
 .calendar-title {
-    margin-bottom: 0rem;
+    margin-bottom: 0;
 
     h1 {
-        font-size: 7rem;
+        font-size: 8vw;
         margin-bottom: -2.5rem;
     }
 
     h2 {
-        font-size: 3rem;
+        font-size: 3.5vw;
         margin-bottom: -1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .calendar-title {
+        margin-bottom: 0;
+        padding: 0;
+    }
+
+    .calendar-title h1 {
+        margin-bottom: 0.5rem;
+        font-size: 3rem;
+    }
+
+    .calendar-title h2 {
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
     }
 }
 
@@ -162,4 +179,8 @@ h2 {
         background-size: contain;
         background-repeat: no-repeat;
     }
+}
+
+.mobile-layout {
+    background-color: transparent;
 }

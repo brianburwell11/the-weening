@@ -167,58 +167,188 @@
     box-shadow: 0 4px 8px rgba(255, 148, 66, 0.4);
 }
 
-/* Responsive Design */
+/* Mobile Design - Vertical Card Layout */
 @media (max-width: 768px) {
     .calendar-container {
-        padding: 0 1rem;
+        padding: 0;
     }
 
-    .calendar-header h1 {
-        font-size: 2rem;
-    }
-
-    .calendar-wrapper {
+    .calendar-title {
+        text-align: center;
+        margin-bottom: 2rem;
         padding: 1rem;
     }
 
+    .calendar-title h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .calendar-wrapper {
+        padding: 0;
+    }
+
+    /* Hide the grid layout on mobile */
+    .calendar-grid {
+        display: none;
+    }
+
+    /* Show mobile calendar layout */
+    .calendar-grid.mobile-layout {
+        display: block;
+        padding: 1rem;
+    }
+
+    /* Mobile calendar cards */
     .calendar-cell {
-        padding: 1rem 0.5rem;
-        min-height: 100px;
+        background: white;
+        border-radius: 16px;
+        margin-bottom: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        min-height: auto;
+        text-align: left;
+        position: relative;
+    }
+
+
+    /* Day info section */
+    .calendar-cell .day-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 60px;
     }
 
     .calendar-cell .date {
-        font-size: 1rem;
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0;
+        color: #333;
+        line-height: 1;
     }
 
-    .calendar-cell .content {
-        font-size: 0.8rem;
+    .calendar-cell .day-name {
+        font-size: 0.9rem;
+        font-weight: 400;
+        color: #666;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.25rem;
     }
 
+    /* Event timeline section */
+    .event-buttons {
+        flex: 1;
+        margin-left: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    /* Timeline markers */
+    .calendar-cell {
+        position: relative;
+    }
+
+    /* Event buttons as timeline items */
     .ween-btn,
     .weenie-btn {
-        padding: 0.4rem 0.6rem;
-        font-size: 0.7rem;
+        background: #333;
+        color: white;
+        border: none;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+        position: relative;
+        margin-left: 1rem;
+        z-index: 2;
+        text-decoration: none;
+        display: block;
+    }
+
+    .ween-btn {
+        background: #8b5cf6;
+        /* Purple for weens */
+    }
+
+    .weenie-btn {
+        background: #f59e0b;
+        /* Orange for weenies */
+    }
+
+    .ween-btn:hover,
+    .weenie-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Add event button */
+    .calendar-cell .add-event-btn {
+        background: #f3f4f6;
+        color: #6b7280;
+        border: 1px dashed #d1d5db;
+        padding: 0.5rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+        margin-left: 1rem;
+        margin-top: 0.5rem;
+        z-index: 2;
+        position: relative;
+    }
+
+    .calendar-cell .add-event-btn:hover {
+        background: #e5e7eb;
+        border-color: #9ca3af;
+    }
+
+    /* Empty cells styling */
+    .calendar-cell.empty {
+        background: #f9fafb;
+        color: #9ca3af;
+        border: 1px dashed #d1d5db;
+    }
+
+    .calendar-cell.empty .date {
+        color: #9ca3af;
+    }
+
+    /* Today highlighting */
+    .calendar-cell.today {
+        border: 2px solid #3b82f6;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    }
+
+    .calendar-cell.today .date {
+        color: #3b82f6;
+    }
+
+    /* Halloween special styling */
+    .calendar-cell.halloween {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        color: white;
+    }
+
+    .calendar-cell.halloween .date,
+    .calendar-cell.halloween .day-name {
+        color: white;
     }
 }
 
-@media (max-width: 480px) {
-    .calendar-grid {
-        gap: 0.5px;
-    }
-
-    .calendar-cell {
-        padding: 0.75rem 0.25rem;
-        min-height: 80px;
-    }
-
-    .calendar-header-cell {
-        padding: 0.75rem 0.25rem;
-        font-size: 0.9rem;
-    }
-
-    .ween-btn,
-    .weenie-btn {
-        padding: 0.3rem 0.5rem;
-        font-size: 0.65rem;
+/* Hide mobile layout on desktop */
+@media (min-width: 769px) {
+    .calendar-grid.mobile-layout {
+        display: none;
     }
 }

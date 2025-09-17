@@ -38,6 +38,7 @@
     </div>
 
     <div class="calendar-wrapper">
+      <!-- Desktop Grid Layout -->
       <div class="calendar-grid" id="calendar-grid">
         <!-- Header Row -->
         <div class="calendar-header-cell">Sunday</div>
@@ -88,6 +89,59 @@
                     {{ movie.title }}
                   </a>
                 {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Mobile Card Layout -->
+      <div class="calendar-grid mobile-layout">
+        {% assign day_names = 'Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday' | split: ',' %}
+        {% for day in (1..31) %}
+          {% assign day_str = year | append: '-10-' | append: day %}
+          {% if day < 10 %}
+            {% assign day_str = year | append: '-10-0' | append: day %}
+          {% endif %}
+          {% assign day_movies = dataSet | where: 'date', day_str %}
+
+          {% comment %} Calculate which day of the week this is {% endcomment %}
+          {% assign day_of_week_index = day | plus: monthStartsOnWeekday | minus: 2 %}
+          {% assign day_of_week_index = day_of_week_index | modulo: 7 %}
+          {% assign day_name = day_names[day_of_week_index] %}
+
+          {% assign is_today = false %}
+          {% assign year_string = year | append: '' %}
+          {% assign day_string = day | append: '' %}
+          {% if year_string == today_year and today_month == '10' and day_string == today_day %}
+            {% assign is_today = true %}
+          {% endif %}
+
+          {% assign is_halloween = false %}
+          {% if day == 31 %}
+            {% assign is_halloween = true %}
+          {% endif %}
+
+          <div class="calendar-cell{% if day_movies.size == 0 %} empty{% endif %}{% if is_today %} today{% endif %}{% if is_halloween %} halloween{% endif %}">
+            <div class="day-info">
+              <div class="day-name">{{ day_name }}</div>
+              <div class="date">{{ day }}</div>
+            </div>
+            {% if day_movies.size > 0 %}
+              <div class="event-buttons">
+                {% for movie in day_movies %}
+                  <a
+                    href="/movies/{{ movie.tmdb | slugify }}/"
+                    class="{% if movie.type == 'Ween' %}ween-btn{% else %}weenie-btn{% endif %} movie-card{% if movie['release-year'] == year_string %} new-release{% endif %}"
+                    data-modal-url="/movies/{{ movie.tmdb | slugify }}/"
+                  >
+                    {{ movie.title }}
+                  </a>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="event-buttons">
+                <div class="add-event-btn">+ Add Event</div>
               </div>
             {% endif %}
           </div>
