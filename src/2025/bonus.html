@@ -10,8 +10,8 @@ title: 2025 Bonus Weens
 
 
 <div class="movies-grid">
-    {% for movie in weening2025 %}
-    {% if movie.type == "Bonus" %}
+    {% assign sorted_movies = weening2025 | where: "type", "Bonus" | sort: "title" %}
+    {% for movie in sorted_movies %}
     <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card">
         <div class="movie-poster">
             <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster">
@@ -26,6 +26,5 @@ title: 2025 Bonus Weens
             </div>
         </div>
     </a>
-    {% endif %}
     {% endfor %}
 </div>
