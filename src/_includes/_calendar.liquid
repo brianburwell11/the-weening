@@ -1,11 +1,12 @@
 {% comment %}
   Reusable Calendar Template
-  Usage: {% include '_calendar.liquid', year: 2025, monthStartsOnWeekday: 3, dataSet: weening2025, customCss: 'halloween2024.css' %}
+  Usage: {% include '_calendar.liquid', year: 2025, monthStartsOnWeekday: 3, dataSet: weening2025, today: '2025-10-16', customCss: 'halloween2024.css' %}
 
   Parameters:
   - year: The year for the calendar (e.g., 2025)
   - monthStartsOnWeekday: Day of week the month starts (0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, etc.)
   - dataSet: The data collection to use for movie information (e.g., weening2025, weening2026, etc.)
+  - today: The current date in YYYY-MM-DD format (e.g., '2025-10-16'). Defaults to '2025-10-16' if not provided.
   - customCss: Optional CSS file to load for custom styling (e.g., 'halloween2024.css', 'christmas2025.css')
 {% endcomment %}
 
@@ -13,18 +14,18 @@
 {% unless year %}{% assign year = 2025 %}{% endunless %}
 {% unless monthStartsOnWeekday %}{% assign monthStartsOnWeekday = 3 %}{% endunless %}
 {% unless dataSet %}{% assign dataSet = weening2025 %}{% endunless %}
+{% unless today %}{% assign today = '2025-10-16' %}{% endunless %}
 
 {% comment %} Load custom CSS if provided {% endcomment %}
 {% if customCss %}
   <link rel="stylesheet" href="/assets/css/{{ customCss }}">
 {% endif %}
 
-{% comment %} Get today's date for highlighting {% endcomment %}
-{% comment %} {% assign today = 'now' | date: '%Y-%m-%d' %} {% endcomment %}
-{% assign today = '2025-10-16' %}
-{% assign today_year = '2025' %}
-{% assign today_month = '10' %}
-{% assign today_day = '16' %}
+{% comment %} Parse today's date for highlighting {% endcomment %}
+{% assign today_parts = today | split: '-' %}
+{% assign today_year = today_parts[0] %}
+{% assign today_month = today_parts[1] %}
+{% assign today_day = today_parts[2] %}
 <!-- Debug: today={{ today }}, today_year={{ today_year }}, today_month={{ today_month }}, today_day={{ today_day }} -->
 
 <section class="calendar-section">
