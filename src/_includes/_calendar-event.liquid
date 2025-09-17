@@ -1,0 +1,18 @@
+---
+day:
+---
+<div class="calendar-cell{% if weens == blank and weenies == blank %} empty{% endif %}">
+  <div class="date">{{ day.date }}</div>
+  {% if day.weens or day.weenies %}
+    <div class="event-buttons">
+      {% for ween in day.weens %}
+        <button class="ween-btn">💀 {{ ween }}</button>
+      {% endfor %}
+      {% for weenie in day.weenies %}
+        <button class="weenie-btn">🎃 {{ weenie }}</button>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="content">-</div>
+  {% endif %}
+</div>

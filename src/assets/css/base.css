@@ -81,6 +81,22 @@ body {
     box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
 }
 
+@font-face {
+    font-family: 'Stella';
+    src: url('/Stella.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Anantason';
+    src: url('/Anantason-Bold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .weening-logo {

@@ -1,6 +1,7 @@
 :root {
     /* 2025 Color Palette */
     --black: #000000;
+    --white: #ffffff;
     --bone: #ffecd9;
     --hollow: #2e2014;
     --pumpkin: #ff7913;
@@ -13,4 +14,126 @@
     --magic: #9e369f;
     --twilight: #cdc2fd;
     --dark-sky: #2d2d2d;
+}
+
+
+@font-face {
+    font-family: 'Stella';
+    src: url('/Stella.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Anantason';
+    src: url('/Anantason-Bold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Calendar styles */
+.calendar-title {
+    font-family: 'Stella', sans-serif !important;
+    text-transform: uppercase;
+    margin-bottom: 0rem;
+
+    h1 {
+        color: var(--white);
+        font-size: 7rem;
+        margin-bottom: -2.5rem;
+        text-shadow: 4px 4px 0px var(--black), 8px 8px 0px var(--smile), 12px 12px 0px var(--dark-sky);
+    }
+
+    h2 {
+        color: var(--twilight);
+        font-size: 3rem;
+        margin-bottom: -1rem;
+        text-shadow: 2px 2px 0px var(--black), 4px 4px 0px var(--smile), 6px 6px 0px var(--dark-sky);
+    }
+}
+
+.calendar-header-cell {
+    background-color: var(--twilight);
+    color: var(--black);
+    font-family: 'Anantason', sans-serif !important;
+}
+
+.calendar-cell {
+    background-color: var(--blank);
+    color: var(--black);
+}
+
+.calendar-cell.empty,
+.calendar-cell.empty:hover {
+    background-color: var(--twilight);
+}
+
+.calendar-cell:hover {
+    background-color: var(--blank);
+    border-color: var(--magic);
+}
+
+.calendar-cell.today {
+    background-color: var(--blank);
+    border-color: var(--magic);
+    border-width: 3px;
+    box-shadow: inset 0 0 15px var(--magic), 0 0 15px var(--magic),
+        inset 0 0 30px var(--magic), 0 0 30px var(--magic);
+}
+
+.calendar-cell.today .date {
+    color: var(--magic);
+    text-shadow: 0 0 15px var(--magic), 0 0 30px var(--magic);
+}
+
+.calendar-cell.halloween {
+    background-color: var(--halloween);
+    color: var(--black);
+}
+
+.date {
+    color: var(--black) !important;
+    font-family: 'Anantason', sans-serif !important;
+}
+
+.weenie-btn {
+    background-color: var(--pumpkin);
+    color: var(--smile);
+    font-family: 'Anantason', sans-serif !important;
+}
+
+.weenie-btn:hover {
+    background-color: var(--pumpkin-shadow);
+    color: var(--white);
+}
+
+.ween-btn {
+    background-color: var(--dark-sky);
+    color: var(--white);
+    font-family: 'Anantason', sans-serif !important;
+}
+
+.ween-btn:hover {
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.new-release {
+    position: relative;
+    padding-left: 2.5rem;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 2rem;
+        width: 2rem;
+        background-image: url('/assets/img/weening-skull-black.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
 }
