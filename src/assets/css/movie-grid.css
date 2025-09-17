@@ -3,12 +3,17 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 2rem;
     padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: center;
+    justify-items: center;
 }
 
 .movie-card {
     text-decoration: none;
     color: inherit;
     transition: transform 0.2s;
+    justify-self: center;
 }
 
 .movie-card:hover {
