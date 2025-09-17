@@ -97,6 +97,25 @@ body {
     font-display: swap;
 }
 
+/* Sticky header styles */
+.sticky-header {
+    text-align: center;
+    position: sticky;
+    top: 64px;
+    margin: 0;
+    z-index: 100;
+}
+
+.header-content {
+    padding: 1rem;
+    display: inline-block;
+}
+
+.title-icon {
+    height: 1.5em;
+    vertical-align: top;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .weening-logo {

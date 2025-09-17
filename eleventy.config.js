@@ -4,6 +4,7 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy("src/assets");
     eleventyConfig.addPassthroughCopy("_redirects");
     eleventyConfig.addPassthroughCopy("*.woff2");
+    eleventyConfig.setDataDeepMerge(true);
     eleventyConfig.addDataExtension("csv", (contents) => {
         const records = parse(contents, {
             columns: true,
