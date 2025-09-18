@@ -41,6 +41,14 @@ body {
     font-display: swap;
 }
 
+.nav-links,
+.nav-dropdown-toggle,
+.mobile-nav-link,
+.mobile-nav-title,
+.movie-id {
+    font-family: 'Anantason', sans-serif;
+}
+
 /* Calendar styles */
 .calendar-title {
     margin-bottom: 0;
