@@ -1,20 +1,20 @@
-{% assign weening-cal-url = 'https://calendar.google.com/calendar/u/0?cid=cnBpbjcwY2x0bjRtcm0xdDRrYnRlaWxzNGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ' %}
-
-<a
-  href="{{ weening-cal-url }}"
-  class="add-calendar-btn"
-  ><img src="/assets/img/add-calendar-icon.png" alt="Add Calendar" class="calendar-icon">Subscribe to the 'Weening
-  Calendar</a
->
-
+{% unless button_text %}{% assign button_text = '' %}{% endunless %}
+<a href="{{ href }}" class="add-calendar-btn">
+  {% if image_src %}<img src="{{ image_src }}" class="calendar-icon">{% endif %}
+  {{ button_text }}
+</a>
+{% unless background_color %}{% assign background_color = '#ff6b35' %}{% endunless %}
+{% unless text_color %}{% assign text_color = '#ffffff' %}{% endunless %}
+{% unless hover_color %}{% assign hover_color = '#ff7a4a' %}{% endunless %}
+{% unless shadow_color %}{% assign shadow_color = '#ff6b35' %}{% endunless %}
 <style>
   .add-calendar-btn {
     display: inline-flex;
     align-items: center;
     gap: 16px;
     padding: 24px 48px 24px 20px;
-    background: #ff6b35;
-    color: white;
+    background: {{ background_color }};
+    color: {{ text_color }};
     text-decoration: none;
     border-radius: 12px;
     font-weight: 700;
@@ -22,7 +22,7 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     line-height: 1.2;
-    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+    box-shadow: 0 6px 20px {{ shadow_color }};
     transition: all 0.3s ease;
     border: none;
     cursor: pointer;
@@ -44,8 +44,8 @@
 
   .add-calendar-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
-    background: #ff7a4a;
+    box-shadow: 0 10px 30px {{ shadow_color }};
+    background: {{ hover_color }};
   }
 
   .add-calendar-btn:hover::before {
@@ -54,16 +54,15 @@
 
   .add-calendar-btn:active {
     transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    box-shadow: 0 4px 15px {{ shadow_color }};
   }
 
   .add-calendar-btn:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.3);
+    box-shadow: 0 0 0 3px {{ shadow_color }};
   }
 
   .calendar-icon {
-    width: 40px;
     height: 40px;
     transition: transform 0.3s ease;
     flex-shrink: 0;
@@ -82,7 +81,6 @@
     }
 
     .calendar-icon {
-      width: 36px;
       height: 36px;
     }
   }
@@ -95,7 +93,6 @@
     }
 
     .calendar-icon {
-      width: 32px;
       height: 32px;
     }
   }
