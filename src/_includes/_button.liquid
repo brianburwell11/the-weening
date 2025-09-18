@@ -1,5 +1,7 @@
+{% assign button_text_clean = button_text | downcase | replace: ' ', '-' | replace: "'", '' %}
+{% assign button_id = 'btn-' | append: button_text_clean %}
 {% unless button_text %}{% assign button_text = '' %}{% endunless %}
-<a href="{{ href }}" class="add-calendar-btn">
+<a href="{{ href }}" class="btn" id="{{ button_id }}">
   {% if image_src %}<img src="{{ image_src }}" class="calendar-icon">{% endif %}
   {{ button_text }}
 </a>
@@ -8,7 +10,7 @@
 {% unless hover_color %}{% assign hover_color = '#ff7a4a' %}{% endunless %}
 {% unless shadow_color %}{% assign shadow_color = '#ff6b35' %}{% endunless %}
 <style>
-  .add-calendar-btn {
+  #{{ button_id }} {
     display: inline-flex;
     align-items: center;
     gap: 16px;
@@ -31,7 +33,7 @@
     text-align: center;
   }
 
-  .add-calendar-btn::before {
+  #{{ button_id }}::before {
     content: '';
     position: absolute;
     top: 0;
@@ -42,22 +44,22 @@
     transition: left 0.5s ease;
   }
 
-  .add-calendar-btn:hover {
+  #{{ button_id }}:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 30px {{ shadow_color }};
     background: {{ hover_color }};
   }
 
-  .add-calendar-btn:hover::before {
+  #{{ button_id }}:hover::before {
     left: 100%;
   }
 
-  .add-calendar-btn:active {
+  #{{ button_id }}:active {
     transform: translateY(-1px);
     box-shadow: 0 4px 15px {{ shadow_color }};
   }
 
-  .add-calendar-btn:focus {
+  #{{ button_id }}:focus {
     outline: none;
     box-shadow: 0 0 0 3px {{ shadow_color }};
   }
@@ -68,13 +70,13 @@
     flex-shrink: 0;
   }
 
-  .add-calendar-btn:hover .calendar-icon {
+  .btn:hover .calendar-icon {
     transform: scale(1.1);
   }
 
   /* Mobile responsive */
   @media (max-width: 768px) {
-    .add-calendar-btn {
+    .btn {
       padding: 20px 40px 20px 16px;
       font-size: 0.65rem;
       letter-spacing: 0.8px;
@@ -86,7 +88,7 @@
   }
 
   @media (max-width: 480px) {
-    .add-calendar-btn {
+    .btn {
       padding: 18px 36px 18px 14px;
       font-size: 0.6rem;
       letter-spacing: 0.6px;
