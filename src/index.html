@@ -11,37 +11,7 @@ css:
         <div class="hero-content">
             {% assign today = "now" | date: "%Y-%m-%d" %}
             {% assign today = '2025-10-16' %}
-            {% assign target_date = today %}
-            {% assign day_movies = weening2025 | where: "date", target_date %}
-
-            {% if day_movies.size >= 2 %}
-            <div class="todays-movies-container">
-                <h1 class="todays-movies-title">Today's Movies</h1>
-                {% assign date_parts = target_date | split: "-" %}
-                {% assign year = date_parts[0] %}
-                {% assign day = date_parts[2] %}
-                <h2 class="todays-movies-date">October {{ day }}, {{ year }}</h2>
-                <div class="todays-movies">
-                    {% for movie in day_movies limit: 2 %}
-                    <div class="todays-movie-card">
-                        <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card">
-                            <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster" class="todays-movie-poster">
-                        </a>
-                        <div class="movie-id">{{ movie.id }}</div>
-                    </div>
-                    {% endfor %}
-
-                    <div class="weening-logo-overlay">
-                        <img src="/assets/img/weening-logo.png" alt="The 'Weening Logo" class="weening-logo"
-                            id="weening-logo">
-                    </div>
-                </div>
-            </div>
-            {% else %}
-            <div class="hero-fallback">
-                <img src="/assets/img/weening-logo.png" alt="The 'Weening Logo" class="weening-logo" id="weening-logo">
-            </div>
-            {% endif %}
+            {% include '_todays-movies.liquid', dataSet: weening2025, today: today %}
         </div>
     </div>
 </section>
@@ -84,104 +54,6 @@ weening2025, customCss: '2025.css', today: today %}
 
 
 <style>
-    .todays-movies-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-    .todays-movies-title {
-        text-align: center;
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 0.25rem;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    }
-
-    .todays-movies-date {
-        text-align: center;
-        font-size: 1.5rem;
-        font-weight: 400;
-        color: var(--text-secondary);
-        margin-bottom: 1.5rem;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    }
-
-    .todays-movies {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 60px;
-        max-width: 900px;
-        margin: 0 10px;
-    }
-
-    .todays-movie-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .movie-poster-link {
-        display: block;
-        transition: transform 0.3s ease;
-    }
-
-    .movie-poster-link:hover {
-        transform: scale(1.05);
-    }
-
-    .todays-movie-poster {
-        width: 200px;
-        height: auto;
-        border-radius: 8px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-    }
-
-    .movie-id {
-        margin-top: 15px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: var(--text-primary);
-        text-align: center;
-    }
-
-    .weening-logo-overlay {
-        position: absolute;
-        bottom: 35px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10;
-    }
-
-    .weening-logo {
-        max-width: 150px;
-        width: 100%;
-        height: auto;
-        display: block;
-        transition: transform 0.3s ease, filter 0.3s ease;
-        filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
-    }
-
-    .weening-logo:hover {
-        transform: scale(1.05);
-        filter: drop-shadow(0 8px 16px rgba(255, 255, 255, 0.3));
-    }
-
-    .hero-fallback {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .hero-fallback .weening-logo {
-        max-width: 400px;
-    }
-
     .button-container {
         display: flex;
         justify-content: space-evenly;
@@ -198,61 +70,9 @@ weening2025, customCss: '2025.css', today: today %}
             margin-bottom: 0.25rem;
         }
 
-        .todays-movies-date {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-
-        .todays-movies {
-            gap: 20px;
-            max-width: 100%;
-            padding: 0 5px;
-        }
-
-        .todays-movie-card {
-            flex: 1;
-            max-width: none;
-        }
-
-        .todays-movie-poster {
-            width: 150px;
-            max-width: 45vw;
-        }
-
-        .movie-id {
-            font-size: 0.9rem;
-            margin-top: 8px;
-        }
-
-        .weening-logo-overlay {
-            bottom: 45px;
-        }
-
-        .weening-logo {
-            max-width: 100px;
-        }
-
         .button-container {
             flex-direction: column;
             gap: 1rem;
         }
     }
 </style>
-
-<script>
-    // Get the logo element
-    const logo = document.getElementById('weening-logo');
-
-    // Create audio element
-    const audio = new Audio('/assets/audio/thriller-laugh.mp3');
-
-    // Add click event listener
-    if (logo) {
-        logo.addEventListener('click', function () {
-            // Play the audio
-            audio.play().catch(function (error) {
-                console.log('Audio playback failed:', error);
-            });
-        });
-    }
-</script>
