@@ -129,11 +129,12 @@
     font-weight: 600;
     color: var(--text-primary);
     text-align: center;
+    width: 210px;
   }
 
   .weening-logo-overlay {
     position: absolute;
-    bottom: 35px;
+    top: 245px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -183,6 +184,7 @@
     text-align: center;
     flex: 1;
     min-width: 0;
+    max-width: 200px;
   }
 
   .todays-movies-multi .todays-movie-poster {
@@ -193,8 +195,21 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
   }
 
+  .todays-movies-multi .movie-id {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    width: 200px;
+    line-height: 1.2;
+  }
+
   .weening-logo-overlay-multi {
-    bottom: 28%;
+    top: 200px;
   }
 
   @media (max-width: 768px) {
@@ -230,7 +245,7 @@
     }
 
     .weening-logo-overlay {
-      bottom: 45px;
+      top: 185px;
     }
 
     .weening-logo {
@@ -242,7 +257,7 @@
       width: 100%;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: repeat(3, auto);
+      grid-auto-rows: auto;
       gap: 15px;
       padding: 0 5px;
     }
@@ -256,7 +271,7 @@
       max-width: 120px;
     }
     .weening-logo-overlay-multi {
-      bottom: 95%;
+      top: -30px;
     }
   }
 </style>
