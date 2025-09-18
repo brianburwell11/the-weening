@@ -1,0 +1,102 @@
+{% assign weening-cal-url = 'https://calendar.google.com/calendar/u/0?cid=cnBpbjcwY2x0bjRtcm0xdDRrYnRlaWxzNGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ' %}
+
+<a
+  href="{{ weening-cal-url }}"
+  class="add-calendar-btn"
+  ><img src="/assets/img/add-calendar-icon.png" alt="Add Calendar" class="calendar-icon">Subscribe to the 'Weening
+  Calendar</a
+>
+
+<style>
+  .add-calendar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 48px 24px 20px;
+    background: #ff6b35;
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .add-calendar-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .add-calendar-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+    background: #ff7a4a;
+  }
+
+  .add-calendar-btn:hover::before {
+    left: 100%;
+  }
+
+  .add-calendar-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+  }
+
+  .add-calendar-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.3);
+  }
+
+  .calendar-icon {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .add-calendar-btn:hover .calendar-icon {
+    transform: scale(1.1);
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .add-calendar-btn {
+      padding: 20px 40px 20px 16px;
+      font-size: 0.65rem;
+      letter-spacing: 0.8px;
+    }
+
+    .calendar-icon {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .add-calendar-btn {
+      padding: 18px 36px 18px 14px;
+      font-size: 0.6rem;
+      letter-spacing: 0.6px;
+    }
+
+    .calendar-icon {
+      width: 32px;
+      height: 32px;
+    }
+  }
+</style>
