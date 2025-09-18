@@ -1,13 +1,21 @@
 {% assign button_text_clean = button_text | downcase | replace: ' ', '-' | replace: "'", '' %}
 {% assign button_id = 'btn-' | append: button_text_clean %}
 {% unless button_text %}{% assign button_text = '' %}{% endunless %}
-<a href="{{ href }}" class="btn" id="{{ button_id }}">
+<a
+  href="{{ href }}"
+  class="btn"
+  id="{{ button_id }}"
+  {% if new_tab %}
+    target="_blank"
+  {% endif %}
+>
   {% if image_src %}<img src="{{ image_src }}" class="calendar-icon">{% endif %}
   {{ button_text }}
 </a>
 {% unless background_color %}{% assign background_color = '#ff6b35' %}{% endunless %}
 {% unless text_color %}{% assign text_color = '#ffffff' %}{% endunless %}
 {% unless hover_color %}{% assign hover_color = '#ff7a4a' %}{% endunless %}
+{% unless hover_text_color %}{% assign hover_text_color = text_color %}{% endunless %}
 {% unless shadow_color %}{% assign shadow_color = '#ff6b35' %}{% endunless %}
 <style>
   #{{ button_id }} {
@@ -48,6 +56,7 @@
     transform: translateY(-3px);
     box-shadow: 0 10px 30px {{ shadow_color }};
     background: {{ hover_color }};
+    color: {{ hover_text_color }};
   }
 
   #{{ button_id }}:hover::before {

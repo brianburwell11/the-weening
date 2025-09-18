@@ -54,8 +54,30 @@ weening2025, customCss: '2025.css', today: today %}
     {% assign weening-cal-url
     ='https://calendar.google.com/calendar/u/0?cid=cnBpbjcwY2x0bjRtcm0xdDRrYnRlaWxzNGtAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ'
     %}
-    {% include '_button.liquid', href: weening-cal-url, image_src: '/assets/img/add-calendar-icon.png', button_text:
-    "Subscribe to the 'Weening Calendar" %}
+    {% include '_button.liquid', href:weening-cal-url,
+    image_src:'/assets/img/add-calendar-icon.png',
+    button_text:"Subscribe to the 'Weening Calendar",
+    new_tab:true,
+    background_color: 'var(--twilight)', text_color: 'var(--black)'
+    hover_color:'var(--magic)', hover_text_color: 'var(--white)'
+    shadow_color:'var(--magic)'%}
+
+    <!--bonus weens button-->
+    {% include '_button.liquid', href:'/2025/bonus/',
+    image_src:'/assets/img/yoga-skeleton.png', button_text:'Bonus Weens',
+    new_tab:false,
+    background_color: 'var(--twilight)', text_color: 'var(--black)'
+    hover_color:'var(--magic)', hover_text_color: 'var(--white)'
+    shadow_color:'var(--magic)'%}
+
+    <!--downloads button-->
+    {% include '_button.liquid',
+    href:'/public/downloads/2025/The-Weening-2025-Printable.pdf',
+    image_src:'/assets/img/print-icon.png', button_text:'Download Printable Calendar',
+    new_tab:true,
+    background_color: 'var(--twilight)', text_color: 'var(--black)'
+    hover_color:'var(--magic)', hover_text_color: 'var(--white)'
+    shadow_color:'var(--magic)'%}
 </div>
 
 {% include '_footer.liquid' %}
