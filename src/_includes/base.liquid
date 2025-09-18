@@ -23,6 +23,9 @@ css:
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/base.css">
     <link rel="stylesheet" href="/assets/css/modal.css">
+    {% unless movie %}
+      <link rel="stylesheet" href="/assets/css/2025.css">
+    {% endunless %}
     {% if css %}
       {% for stylesheet in css %}
         <link rel="stylesheet" href="/assets/css/{{ stylesheet }}">
@@ -37,6 +40,9 @@ css:
     <main>
       {{ content }}
     </main>
+    {% unless movie %}
+      {% include '_footer.liquid' %}
+    {% endunless %}
 
     {{ scripts }}
     <script src="/assets/js/modal.js"></script>

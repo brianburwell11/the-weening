@@ -1,6 +1,6 @@
 {
     "layout": "base.liquid",
-    "css": ["2025.css", "movie-grid.css"],
+    "css": ["movie-grid.css"],
     "tags": [
         "2025"
     ]
