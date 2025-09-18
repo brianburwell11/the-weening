@@ -61,7 +61,12 @@ layout: base.liquid
           </a>
         {% endif %}
 
-      <style></style>
+        <div class="action-button-container">
+          <button class="action-button toggle-watched" data-movie-id="{{ movie.id }}" data-tmdb-id="{{ movie.tmdb }}">
+            <span class="watched-icon">👁️</span>
+          </button>
+          <span class="action-label">Mark as Watched</span>
+        </div>
     </div>
   </div>
 </div>
@@ -217,6 +222,21 @@ layout: base.liquid
     color: #cccccc;
   }
 
+  .watched-icon {
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+  }
+
+  .toggle-watched.watched .watched-icon {
+    color: #4ade80;
+    filter: drop-shadow(0 0 8px rgba(74, 222, 128, 0.5));
+  }
+
+  .toggle-watched.watched {
+    background: rgba(74, 222, 128, 0.1);
+    border-color: #4ade80;
+  }
+
   .movie-trailer {
     display: flex;
     justify-content: center;
@@ -251,3 +271,97 @@ layout: base.liquid
     }
   }
 </style>
+
+<script>
+console.log('Movie script loaded!');
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    console.log('DOM Content Loaded - starting movie script');
+    // Get all toggle-watched buttons
+    const watchedButtons = document.querySelectorAll('.toggle-watched');
+    console.log('Found', watchedButtons.length, 'watched buttons');
+    
+    // Debug: Check if buttons exist and have the right attributes
+    watchedButtons.forEach((button, index) => {
+      console.log(`Button ${index}:`, {
+        movieId: button.getAttribute('data-movie-id'),
+        tmdbId: button.getAttribute('data-tmdb-id'),
+        classes: button.className
+      });
+    });
+  
+  // Load saved watched state from localStorage
+  function loadWatchedState() {
+    watchedButtons.forEach(button => {
+      const movieId = button.getAttribute('data-movie-id');
+      const tmdbId = button.getAttribute('data-tmdb-id');
+      console.log('Loading watched state for movie:', movieId, 'tmdb:', tmdbId);
+      
+      const isWatched = localStorage.getItem(`movie-${tmdbId}-watched`) === 'true';
+      console.log('Is watched:', isWatched);
+      
+      if (isWatched) {
+        button.classList.add('watched');
+        console.log('Added watched class to button');
+      }
+    });
+  }
+  
+  // Save watched state to localStorage with movie data
+  function saveWatchedState(movieId, tmdbId, isWatched) {
+    const watchedKey = `movie-${tmdbId}-watched`;
+    console.log('Saving to localStorage:', watchedKey, '=', isWatched);
+    localStorage.setItem(watchedKey, isWatched.toString());
+    
+    if (isWatched) {
+      // Store movie data for the watched movies list
+      const movieData = {
+        id: movieId,
+        tmdb: tmdbId,
+        title: {{ movie.title | json }},
+        poster: {{ movie.poster | json }},
+        date: {{ movie.date | json }},
+        type: {{ movie.type | json }},
+        'release-year': {{ movie["release-year"] | json }},
+        runtime: {{ movie.runtime | json }}
+      };
+      const dataKey = `movie-${tmdbId}-data`;
+      console.log('Saving movie data to:', dataKey, movieData);
+      localStorage.setItem(dataKey, JSON.stringify(movieData));
+    } else {
+      // Remove movie data when unwatched
+      const dataKey = `movie-${tmdbId}-data`;
+      console.log('Removing movie data from:', dataKey);
+      localStorage.removeItem(dataKey);
+    }
+  }
+  
+  // Add click event listeners
+  watchedButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const movieId = this.getAttribute('data-movie-id');
+      const tmdbId = this.getAttribute('data-tmdb-id');
+      const isCurrentlyWatched = this.classList.contains('watched');
+      
+      console.log('Button clicked! Movie ID:', movieId, 'TMDB ID:', tmdbId, 'Currently watched:', isCurrentlyWatched);
+      
+      // Toggle the watched state
+      if (isCurrentlyWatched) {
+        this.classList.remove('watched');
+        saveWatchedState(movieId, tmdbId, false);
+        console.log('Marked as NOT watched');
+      } else {
+        this.classList.add('watched');
+        saveWatchedState(movieId, tmdbId, true);
+        console.log('Marked as watched');
+      }
+    });
+  });
+  
+  // Load initial state
+  loadWatchedState();
+  } catch (error) {
+    console.error('Error in movie script:', error);
+  }
+});
+</script>
