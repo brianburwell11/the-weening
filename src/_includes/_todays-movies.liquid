@@ -11,25 +11,52 @@
     {% assign year = date_parts[0] %}
     {% assign day = date_parts[2] %}
     <h2 class="todays-movies-date">October {{ day }}, {{ year }}</h2>
-    <div class="todays-movies">
-      {% for movie in day_movies limit: 2 %}
-        <div class="todays-movie-card">
-          <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card">
-            <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster" class="todays-movie-poster">
-          </a>
-          <div class="movie-id">{{ movie.id }}</div>
-        </div>
-      {% endfor %}
+    {% if day_movies.size <= 2 %}
+      <!-- 2-movie layout -->
+      <div class="todays-movies">
+        {% for movie in day_movies limit: 2 %}
+          <div class="todays-movie-card">
+            <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card">
+              <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster" class="todays-movie-poster">
+            </a>
+            <div class="movie-id">{{ movie.id }}</div>
+          </div>
+        {% endfor %}
 
-      <div class="weening-logo-overlay">
-        <img
-          src="/assets/img/weening-logo.png"
-          alt="The 'Weening Logo"
-          class="weening-logo"
-          id="weening-logo"
-        >
+        <div class="weening-logo-overlay">
+          <img
+            src="/assets/img/weening-logo.png"
+            alt="The 'Weening Logo"
+            class="weening-logo"
+            id="weening-logo"
+          >
+        </div>
       </div>
-    </div>
+    {% else %}
+      <!-- 3+ movie layout -->
+      <div class="todays-movies todays-movies-multi">
+        {% for movie in day_movies limit: 6 %}
+          <div
+            class="todays-movie-card"
+            style="grid-column: {% if forloop.index <= 3 %}1{% else %}2{% endif %}; grid-row: {% if forloop.index <= 3 %}{{ forloop.index }}{% else %}{{ forloop.index | minus: 3 }}{% endif %};"
+          >
+            <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card">
+              <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster" class="todays-movie-poster">
+            </a>
+            <div class="movie-id">{{ movie.id }}</div>
+          </div>
+        {% endfor %}
+
+        <div class="weening-logo-overlay weening-logo-overlay-multi">
+          <img
+            src="/assets/img/weening-logo.png"
+            alt="The 'Weening Logo"
+            class="weening-logo"
+            id="weening-logo"
+          >
+        </div>
+      </div>
+    {% endif %}
   </div>
 {% else %}
   <div class="hero-fallback">
@@ -136,6 +163,40 @@
     max-width: 400px;
   }
 
+  /* Multi-movie layout (3+ movies) */
+  .todays-movies-multi {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    width: 1200px;
+    max-width: 100%;
+    margin: 0 auto;
+    flex-wrap: nowrap;
+  }
+
+  .todays-movies-multi .todays-movie-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .todays-movies-multi .todays-movie-poster {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  }
+
+  .weening-logo-overlay-multi {
+    bottom: 28%;
+  }
+
   @media (max-width: 768px) {
     .todays-movies-title {
       font-size: 2rem;
@@ -174,6 +235,28 @@
 
     .weening-logo {
       max-width: 100px;
+    }
+
+    /* Multi-movie mobile layout */
+    .todays-movies-multi {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(3, auto);
+      gap: 15px;
+      padding: 0 5px;
+    }
+
+    .todays-movies-multi .todays-movie-card {
+      flex: none;
+    }
+
+    .todays-movies-multi .todays-movie-poster {
+      width: 100%;
+      max-width: 120px;
+    }
+    .weening-logo-overlay-multi {
+      bottom: 95%;
     }
   }
 </style>
