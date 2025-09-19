@@ -210,27 +210,6 @@ h2 {
     }
 }
 
-*** Begin Patch *** Update File: /Users/brianburwell/projects/the-weening/src/assets/css/2025.css @@ .calendar-wrapper {
-    position: relative;
-    z-index: 0;
-    /* below the cat */
-}
-
-++
-/* Hide cat overlay on mobile */
-+@media (max-width: 768px) {
-    +.calendar-grid::before {
-        +display: none;
-        +
-    }
-
-    +
-}
-
-*** End Patchlight: #cdc2fd;
---dark-sky: #2d2d2d;
-}
-
 body {
     background-image: url('/assets/img/2025-background.svg');
     background-repeat: repeat;
