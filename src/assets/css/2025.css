@@ -424,7 +424,8 @@ h2 {
         background-repeat: no-repeat;
     }
 
-    .calendar-grid::before {
+    .calendar-grid::before,
+    .calendar-grid::after {
         display: none;
     }
 }
@@ -481,6 +482,20 @@ h2 {
     pointer-events: none;
 }
 
+.calendar-grid::after {
+    content: '';
+    position: absolute;
+    bottom: calc(100% - 28px);
+    left: 85px;
+    width: 200px;
+    height: 400px;
+    background-image: url('/assets/img/yoga-skeleton.png');
+    background-size: contain;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    z-index: 1;
+    pointer-events: none;
+}
 
 .calendar-title {
     position: relative;
