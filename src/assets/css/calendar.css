@@ -347,6 +347,73 @@
 }
 
 /* Hide mobile layout on desktop */
+/* Calendar Key Styles */
+.calendar-key {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem !important;
+}
+
+.key-content {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--black);
+}
+
+.key-title {
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    font-family: 'Anantason', sans-serif;
+    font-size: 1rem;
+}
+
+.key-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.key-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    justify-content: center;
+}
+
+.key-color {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.ween-color {
+    background-color: var(--dark-sky);
+}
+
+.weenie-color {
+    background-color: var(--pumpkin);
+}
+
+.bonus-color {
+    background-color: var(--magic);
+}
+
+.key-text {
+    font-family: 'Anantason', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.1rem;
+}
+
+/* Hide calendar key on mobile */
+@media (max-width: 768px) {
+    .calendar-key {
+        display: none !important;
+    }
+}
+
 @media (min-width: 769px) {
     .calendar-grid.mobile-layout {
         display: none;

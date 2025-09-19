@@ -64,6 +64,21 @@ body {
     }
 }
 
+.key-legend {
+    font-family: 'Anantason', sans-serif;
+    font-size: 3rem;
+}
+
+.key-title {
+    font-family: 'Stella', sans-serif;
+    text-transform: uppercase;
+    font-size: 2rem;
+}
+
+.key-icon {
+    height: 0.5em;
+}
+
 @media (max-width: 768px) {
     .calendar-title {
         margin-bottom: 0;
@@ -201,12 +216,22 @@ h2 {
     background-repeat: no-repeat;
 }
 
+/* Exclude web background from calendar-key cells */
+.calendar-cell.empty.calendar-key {
+    background-image: none;
+}
+
 @media (max-width: 768px) {
     .calendar-cell.empty {
         background-image: url('/assets/img/web-1.png');
         background-size: 100% 100%;
         background-position: center;
         background-repeat: no-repeat;
+    }
+
+    /* Exclude web background from calendar-key cells on mobile too */
+    .calendar-cell.empty.calendar-key {
+        background-image: none;
     }
 }
 

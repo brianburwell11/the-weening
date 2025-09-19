@@ -52,7 +52,36 @@
         <!-- Empty cells for days before the month starts -->
         {% assign blankCells = monthStartsOnWeekday | minus: 1 %}
         {% for i in (0..blankCells) %}
-          <div class="calendar-cell empty"></div>
+          {% if i == blankCells %}
+            <!-- Last empty cell before content - add calendar key -->
+            <div class="calendar-cell empty calendar-key">
+              <div class="key-content">
+                <div class="key-title">Key</div>
+                <div class="key-text">Click on any movie title to see more details</div>
+                <div class="key-legend">
+                  <div class="key-item">
+                    <span class="key-color ween-color"></span>
+                    <span class="key-text">Ween</span>
+                  </div>
+                  <div class="key-item">
+                    <span class="key-color weenie-color"></span>
+                    <span class="key-text">Weenie</span>
+                  </div>
+                  <div class="key-item">
+                    {% if key_icon %}
+                      <img
+                        src="{{key_icon}}"
+                        class="key-icon"
+                      >
+                      <span class="key-text">{{ year }} Release</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <div class="calendar-cell empty"></div>
+          {% endif %}
         {% endfor %}
 
         <!-- Calendar Days -->
