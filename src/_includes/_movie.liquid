@@ -228,13 +228,13 @@ layout: base.liquid
   }
 
   .toggle-watched.watched .watched-icon {
-    color: #4ade80;
-    filter: drop-shadow(0 0 8px rgba(74, 222, 128, 0.5));
+    color: var(--watched-color);
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--watched-color) 50%, transparent));
   }
 
   .toggle-watched.watched {
-    background: rgba(74, 222, 128, 0.1);
-    border-color: #4ade80;
+    background: color-mix(in srgb, var(--watched-color) 10%, transparent);
+    border-color: var(--watched-color);
   }
 
   .movie-trailer {

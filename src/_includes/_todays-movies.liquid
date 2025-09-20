@@ -16,7 +16,7 @@
       <div class="todays-movies">
         {% for movie in day_movies limit: 2 %}
           <div class="todays-movie-card">
-            <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card">
+            <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card" data-tmdb-id="{{ movie.tmdb }}">
               <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster" class="todays-movie-poster">
             </a>
             <div class="movie-id">{{ movie.id }}</div>
@@ -40,7 +40,7 @@
             class="todays-movie-card"
             style="grid-column: {% if forloop.index <= 3 %}1{% else %}2{% endif %}; grid-row: {% if forloop.index <= 3 %}{{ forloop.index }}{% else %}{{ forloop.index | minus: 3 }}{% endif %};"
           >
-            <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card">
+            <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card" data-tmdb-id="{{ movie.tmdb }}">
               <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster" class="todays-movie-poster">
             </a>
             <div class="movie-id">{{ movie.id }}</div>
@@ -292,4 +292,42 @@
       });
     });
   }
+
+  // Check localStorage and apply watched styling to movie buttons
+  function applyWatchedStyling() {
+    const movieButtons = document.querySelectorAll('.movie-card[data-tmdb-id]');
+
+    movieButtons.forEach((button) => {
+      const tmdbId = button.getAttribute('data-tmdb-id');
+      const isWatched = localStorage.getItem(`movie-${tmdbId}-watched`) === 'true';
+
+      if (isWatched) {
+        button.classList.add('watched');
+      } else {
+        button.classList.remove('watched');
+      }
+    });
+  }
+
+  // Apply styling on page load
+  applyWatchedStyling();
+
+  // Listen for storage changes (when user marks movies as watched in another tab)
+  window.addEventListener('storage', function (e) {
+    if (e.key && e.key.includes('movie-') && e.key.endsWith('-watched')) {
+      applyWatchedStyling();
+    }
+  });
 </script>
+
+<style>
+  :root {
+    --watched-color: #4ade80;
+  }
+
+  .movie-card.watched .todays-movie-poster {
+    box-shadow: 0 0 15px var(--watched-color), 0 0 30px var(--watched-color);
+    border: 2px solid var(--watched-color);
+    border-radius: 8px;
+  }
+</style>
