@@ -61,6 +61,15 @@ layout: base.liquid
           </a>
         {% endif %}
 
+        {% if movie['where-to-watch'] != blank %}
+          <a href="{{ movie['where-to-watch'] }}" target="_blank">
+            <div class="action-button-container">
+              <button class="action-button">▶️</button>
+              <span class="action-label">Where to Watch</span>
+            </div>
+          </a>
+        {% endif %}
+
         <div class="action-button-container">
           <button class="action-button toggle-watched" data-movie-id="{{ movie.id }}" data-tmdb-id="{{ movie.tmdb }}">
             <span class="watched-icon">👁️</span>
@@ -189,9 +198,14 @@ layout: base.liquid
 
   .movie-actions {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin: 20px 0;
-    max-width: 500px;
+    width: 100%;
+    gap: 10px;
+    position: relative;
+    z-index: 10;
+    margin-top: -100px;
+    padding-top: 120px;
   }
 
   .action-button-container {
@@ -199,6 +213,16 @@ layout: base.liquid
     flex-direction: column;
     align-items: center;
     gap: 8px;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+  }
+
+  /* Ensure links containing action buttons don't interfere with layout */
+  .movie-actions a {
+    display: flex;
+    flex: 1;
+    min-width: 0;
   }
 
   .action-button {
@@ -220,6 +244,11 @@ layout: base.liquid
   .action-label {
     font-size: 0.9rem;
     color: #cccccc;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
   }
 
   .watched-icon {
