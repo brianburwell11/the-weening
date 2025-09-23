@@ -1,0 +1,41 @@
+name: Auto Deploy to Main
+
+on:
+  schedule:
+    - cron: '31 14 27 9 *'  # September 27th at 10:31 AM EST
+  
+  # Allow manual trigger for testing
+  workflow_dispatch:
+
+jobs:
+  deploy-to-main:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0  # Fetch all history for proper merge
+    
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+    
+    - name: Switch to main branch
+      run: git checkout main
+    
+    - name: Merge development into main (preserve history)
+      run: |
+        git merge origin/development --strategy=recursive -X theirs --no-ff --no-edit
+    
+    - name: Push to main
+      run: |
+        git push origin main --force-with-lease
+    
+    - name: Create deployment tag
+      run: |
+        TAG_NAME="deploy-$(date +%Y%m%d-%H%M%S)"
+        git tag -a "$TAG_NAME" -m "Auto-deploy from development on $(date)"
+        git push origin "$TAG_NAME"
