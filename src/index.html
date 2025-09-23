@@ -6,15 +6,19 @@ css:
 - calendar.css
 - countdown.css
 ---
+
+{% assign today = "now" | date: "%Y-%m-%d" %}
+{% assign current_month = today | date: "%m" %}
+<!-- Today: {{ today }} -->
+
+{% if current_month == "11" %}
+{% include '_countdown-clock.liquid', targetDate:'2026-10-31'%}
+{% else %}
 <section class="hero">
     <div class="hero-container">
         <div class="hero-content">
-            {% assign today = "now" | date: "%Y-%m-%d" %}
-            <!-- Today: {{ today }} -->
             {% include '_todays-movies.liquid', dataSet: weening2025, today: today %}
         </div>
-        <br>
-        {% assign current_month = today | date: "%m" %}
         {% if current_month == "09" %}
         {% include '_countdown-timer.liquid' , title:"The 'Weening begins in", targetDate:'2025-10-01T00:00:00-04:00',
         announcement: "The 'Weening 2025 has begun!" %}
@@ -80,3 +84,5 @@ weening2025, customCss: '2025.css', today:today, key_icon:'/assets/img/weening-s
         }
     }
 </style>
+
+{% endif %}

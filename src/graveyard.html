@@ -7,6 +7,13 @@ title: "'Weening Graveyard"
 <h2 style="text-align: center;">Previous 'Weening Calendars</h2>
 
 <div class="calendar-grid">
+    {% assign today = "now" | date: "%Y-%m-%d" %}
+    {% assign current_month = today | date: "%m" %}
+    {% if current_month == "11" %}
+    <div class="calendar-item" data-year="2025">
+        <img src="/assets/img/weening-2025-calendar.png" alt="2025 'Weening Calendar" class="calendar-image">
+    </div>
+    {% endif %}
     <div class="calendar-item" data-year="2024">
         <img src="/assets/img/weening-2024-calendar.png" alt="2024 'Weening Calendar" class="calendar-image">
     </div>
