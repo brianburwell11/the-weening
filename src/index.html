@@ -4,14 +4,21 @@ title: The 'Weening
 css:
 - movie-grid.css
 - calendar.css
+- countdown.css
 ---
 <section class="hero">
     <div class="hero-container">
         <div class="hero-content">
             {% assign today = "now" | date: "%Y-%m-%d" %}
-            {% assign today = '2025-10-16' %}
+            <!-- Today: {{ today }} -->
             {% include '_todays-movies.liquid', dataSet: weening2025, today: today %}
         </div>
+        <br>
+        {% assign current_month = today | date: "%m" %}
+        {% if current_month == "09" %}
+        {% include '_countdown-timer.liquid' , title:"The 'Weening begins in", targetDate:'2025-10-01T00:00:00-04:00',
+        announcement: "The 'Weening 2025 has begun!" %}
+        {% endif %}
     </div>
 </section>
 

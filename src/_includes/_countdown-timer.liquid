@@ -5,14 +5,16 @@
   Parameters:
   - title: The text to display above the countdown (default: 'The Weening calendar releases in')
   - targetDate: The target date in ISO format (default: '2025-09-27T10:31:00-04:00')
+  - announcement: The text to display when the countdown reaches zero (default: "The 'Weening is here!")
 
   This template includes:
   - HTML structure for the countdown timer
   - JavaScript functionality for the countdown
 {% endcomment %}
 
-{% unless title %}{% assign title = 'The Weening calendar releases in' %}{% endunless %}
+{% unless title %}{% assign title = "The 'Weening calendar releases in" %}{% endunless %}
 {% unless targetDate %}{% assign targetDate = '2025-09-27T10:31:00-04:00' %}{% endunless %}
+{% unless announcement %}{% assign announcement = "The 'Weening is here!" %}{% endunless %}
 
 <!-- Countdown Timer -->
 <div class="countdown-container">
@@ -64,8 +66,7 @@
       document.getElementById('minutes').textContent = '0';
       document.getElementById('seconds').textContent = '0';
 
-      // Optional: Show a message when countdown reaches zero
-      document.querySelector('.countdown-title').textContent = 'The Weening Has Begun!';
+      document.querySelector('.countdown-title').textContent = "{{ announcement }}";
     }
   }
 
