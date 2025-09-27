@@ -1,0 +1,224 @@
+{% comment %}
+  Reusable Calendar Template
+  Usage: {% include '_calendar.liquid', year: 2025, monthStartsOnWeekday: 3, dataSet: weening2025, today: '2025-10-16', customCss: 'halloween2024.css' %}
+
+  Parameters:
+  - year: The year for the calendar (e.g., 2025)
+  - monthStartsOnWeekday: Day of week the month starts (0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, etc.)
+  - dataSet: The data collection to use for movie information (e.g., weening2025, weening2026, etc.)
+  - today: The current date in YYYY-MM-DD format (e.g., '2025-10-16'). Defaults to '2025-10-16' if not provided.
+  - customCss: Optional CSS file to load for custom styling (e.g., 'halloween2024.css', 'christmas2025.css')
+{% endcomment %}
+
+{% comment %} Set default values if not provided {% endcomment %}
+{% unless year %}{% assign year = 2025 %}{% endunless %}
+{% unless monthStartsOnWeekday %}{% assign monthStartsOnWeekday = 3 %}{% endunless %}
+{% unless dataSet %}{% assign dataSet = weening2025 %}{% endunless %}
+{% unless today %}{% assign today = '2025-10-16' %}{% endunless %}
+
+{% comment %} Load custom CSS if provided {% endcomment %}
+{% if customCss %}
+  <link rel="stylesheet" href="/assets/css/{{ customCss }}">
+{% endif %}
+
+{% comment %} Parse today's date for highlighting {% endcomment %}
+{% assign today_parts = today | split: '-' %}
+{% assign today_year = today_parts[0] %}
+{% assign today_month = today_parts[1] %}
+{% assign today_day = today_parts[2] %}
+<!-- Debug: today={{ today }}, today_year={{ today_year }}, today_month={{ today_month }}, today_day={{ today_day }} -->
+
+<section class="calendar-section">
+  <div class="calendar-container">
+    <div class="calendar-title">
+      <h1>The 'Weening {{ year }}</h1>
+      {% if subtitle %}
+        <h2 class="calendar-subtitle">{{ subtitle }}</h2>
+      {% endif %}
+    </div>
+
+    <div class="calendar-wrapper">
+      <!-- Desktop Grid Layout -->
+      <div class="calendar-grid" id="calendar-grid">
+        <!-- Header Row -->
+        <div class="calendar-header-cell">Sunday</div>
+        <div class="calendar-header-cell">Monday</div>
+        <div class="calendar-header-cell">Tuesday</div>
+        <div class="calendar-header-cell">Wednesday</div>
+        <div class="calendar-header-cell">Thursday</div>
+        <div class="calendar-header-cell">Friday</div>
+        <div class="calendar-header-cell">Saturday</div>
+
+        <!-- Empty cells for days before the month starts -->
+        {% assign blankCells = monthStartsOnWeekday | minus: 1 %}
+        {% for i in (0..blankCells) %}
+          {% if i == blankCells %}
+            <!-- Last empty cell before content - add calendar key -->
+            <div class="calendar-cell empty calendar-key">
+              <div class="key-content">
+                <div class="key-title">Key</div>
+                <div class="key-text">Click on any movie title to see more details</div>
+                <div class="key-legend">
+                  <div class="key-item">
+                    <span class="key-color ween-color"></span>
+                    <span class="key-text">Ween</span>
+                  </div>
+                  <div class="key-item">
+                    <span class="key-color weenie-color"></span>
+                    <span class="key-text">Weenie</span>
+                  </div>
+                  <div class="key-item">
+                    {% if key_icon %}
+                      <img
+                        src="{{key_icon}}"
+                        class="key-icon"
+                      >
+                      <span class="key-text">{{ year }} Release</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <div class="calendar-cell empty"></div>
+          {% endif %}
+        {% endfor %}
+
+        <!-- Calendar Days -->
+        {% for day in (1..31) %}
+          {% assign day_str = year | append: '-10-' | append: day %}
+          {% if day < 10 %}
+            {% assign day_str = year | append: '-10-0' | append: day %}
+          {% endif %}
+          {% assign day_movies = dataSet | where: 'date', day_str %}
+
+          {% assign is_today = false %}
+          {% assign year_string = year | append: '' %}
+          {% assign day_string = day | append: '' %}
+          {% if year_string == today_year and today_month == '10' and day_string == today_day %}
+            {% assign is_today = true %}
+          {% endif %}
+          <!--
+            Debug: year={{ year }}, today_year={{ today_year }}, today_month={{ today_month }}, day={{ day }}, day_string={{ day_string }}, today_day={{ today_day }}, is_today={{ is_today }}
+          -->
+          {% assign is_halloween = false %}
+          {% if day == 31 %}
+            {% assign is_halloween = true %}
+          {% endif %}
+          <div class="calendar-cell{% if day_movies.size == 0 %} empty{% endif %}{% if is_today %} today{% endif %}{% if is_halloween %} halloween{% endif %}">
+            <div class="date">{{ day }}</div>
+            {% if day_movies.size > 0 %}
+              <div class="event-buttons">
+                {% for movie in day_movies %}
+                  <a
+                    href="/movies/{{ movie.tmdb | slugify }}/"
+                    class="{% if movie.type == 'Ween' %}ween-btn{% else %}weenie-btn{% endif %} movie-card{% if movie['release-year'] == year_string %} new-release{% endif %}"
+                    data-modal-url="/movies/{{ movie.tmdb | slugify }}/"
+                    data-tmdb-id="{{ movie.tmdb }}"
+                  >
+                    {{ movie.title }}
+                  </a>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Mobile Card Layout -->
+      <div class="calendar-grid mobile-layout">
+        {% assign day_names = 'Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday' | split: ',' %}
+        {% for day in (1..31) %}
+          {% assign day_str = year | append: '-10-' | append: day %}
+          {% if day < 10 %}
+            {% assign day_str = year | append: '-10-0' | append: day %}
+          {% endif %}
+          {% assign day_movies = dataSet | where: 'date', day_str %}
+
+          {% comment %} Calculate which day of the week this is {% endcomment %}
+          {% assign day_of_week_index = day | plus: monthStartsOnWeekday | minus: 2 %}
+          {% assign day_of_week_index = day_of_week_index | modulo: 7 %}
+          {% assign day_name = day_names[day_of_week_index] %}
+
+          {% assign is_today = false %}
+          {% assign year_string = year | append: '' %}
+          {% assign day_string = day | append: '' %}
+          {% if year_string == today_year and today_month == '10' and day_string == today_day %}
+            {% assign is_today = true %}
+          {% endif %}
+
+          {% assign is_halloween = false %}
+          {% if day == 31 %}
+            {% assign is_halloween = true %}
+          {% endif %}
+
+          <div class="calendar-cell{% if day_movies.size == 0 %} empty{% endif %}{% if is_today %} today{% endif %}{% if is_halloween %} halloween{% endif %}">
+            <div class="day-info">
+              <div class="day-name">{{ day_name }}</div>
+              <div class="date">{{ day }}</div>
+            </div>
+            {% if day_movies.size > 0 %}
+              <div class="event-buttons">
+                {% for movie in day_movies %}
+                  <a
+                    href="/movies/{{ movie.tmdb | slugify }}/"
+                    class="{% if movie.type == 'Ween' %}ween-btn{% else %}weenie-btn{% endif %} movie-card{% if movie['release-year'] == year_string %} new-release{% endif %}"
+                    data-modal-url="/movies/{{ movie.tmdb | slugify }}/"
+                    data-tmdb-id="{{ movie.tmdb }}"
+                  >
+                    {{ movie.title }}
+                  </a>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="event-buttons">
+                <div class="add-event-btn">+ Add Event</div>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  :root {
+    --watched-color: #4ade80;
+  }
+
+  .movie-card.watched {
+    box-shadow: 0 0 15px var(--watched-color), 0 0 30px var(--watched-color);
+    border: 2px solid var(--watched-color);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Check localStorage and apply watched styling to movie buttons
+    function applyWatchedStyling() {
+      const movieButtons = document.querySelectorAll('.movie-card[data-tmdb-id]');
+
+      movieButtons.forEach((button) => {
+        const tmdbId = button.getAttribute('data-tmdb-id');
+        const isWatched = localStorage.getItem(`movie-${tmdbId}-watched`) === 'true';
+
+        if (isWatched) {
+          button.classList.add('watched');
+        } else {
+          button.classList.remove('watched');
+        }
+      });
+    }
+
+    // Apply styling on page load
+    applyWatchedStyling();
+
+    // Listen for storage changes (when user marks movies as watched in another tab)
+    window.addEventListener('storage', function (e) {
+      if (e.key && e.key.includes('movie-') && e.key.endsWith('-watched')) {
+        applyWatchedStyling();
+      }
+    });
+  });
+</script>

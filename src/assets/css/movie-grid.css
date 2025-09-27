@@ -1,0 +1,45 @@
+.movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: center;
+    justify-items: center;
+}
+
+.movie-card {
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s;
+    justify-self: center;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+}
+
+.movie-poster img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.movie-info {
+    margin-top: 0.5rem;
+}
+
+.movie-title {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+.movie-metadata {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.movie-metadata span {
+    margin-right: 1rem;
+}

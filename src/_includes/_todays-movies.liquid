@@ -1,0 +1,333 @@
+{% unless today %}{% assign today = 'now' | date: '%Y-%m-%d' %}{% endunless %}
+{% unless dataSet %}{% assign dataSet = weening2025 %}{% endunless %}
+
+{% assign target_date = today %}
+{% assign day_movies = dataSet | where: 'date', target_date %}
+
+{% if day_movies.size >= 2 %}
+  <div class="todays-movies-container">
+    <h1 class="todays-movies-title">Today's Movies</h1>
+    {% assign date_parts = target_date | split: '-' %}
+    {% assign year = date_parts[0] %}
+    {% assign day = date_parts[2] %}
+    <h2 class="todays-movies-date">October {{ day }}, {{ year }}</h2>
+    {% if day_movies.size <= 2 %}
+      <!-- 2-movie layout -->
+      <div class="todays-movies">
+        {% for movie in day_movies limit: 2 %}
+          <div class="todays-movie-card">
+            <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card" data-tmdb-id="{{ movie.tmdb }}">
+              <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster" class="todays-movie-poster">
+            </a>
+            <div class="movie-id">{{ movie.id }}</div>
+          </div>
+        {% endfor %}
+
+        <div class="weening-logo-overlay">
+          <img
+            src="/assets/img/weening-logo.png"
+            alt="The 'Weening Logo"
+            class="weening-logo"
+            id="weening-logo"
+          >
+        </div>
+      </div>
+    {% else %}
+      <!-- 3+ movie layout -->
+      <div class="todays-movies todays-movies-multi">
+        {% for movie in day_movies limit: 6 %}
+          <div
+            class="todays-movie-card"
+            style="grid-column: {% if forloop.index <= 3 %}1{% else %}2{% endif %}; grid-row: {% if forloop.index <= 3 %}{{ forloop.index }}{% else %}{{ forloop.index | minus: 3 }}{% endif %};"
+          >
+            <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card" data-tmdb-id="{{ movie.tmdb }}">
+              <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster" class="todays-movie-poster">
+            </a>
+            <div class="movie-id">{{ movie.id }}</div>
+          </div>
+        {% endfor %}
+
+        <div class="weening-logo-overlay weening-logo-overlay-multi">
+          <img
+            src="/assets/img/weening-logo.png"
+            alt="The 'Weening Logo"
+            class="weening-logo"
+            id="weening-logo"
+          >
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% else %}
+  <div class="hero-fallback">
+    <img src="/assets/img/weening-logo.png" alt="The 'Weening Logo" class="weening-logo" id="weening-logo">
+  </div>
+{% endif %}
+
+<style>
+  .todays-movies-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .todays-movies-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  }
+
+  .todays-movies-date {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .todays-movies {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 60px;
+    max-width: 900px;
+    margin: 0 10px;
+  }
+
+  .todays-movie-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .movie-poster-link {
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .movie-poster-link:hover {
+    transform: scale(1.05);
+  }
+
+  .todays-movie-poster {
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  }
+
+  .movie-id {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    width: 210px;
+  }
+
+  .weening-logo-overlay {
+    position: absolute;
+    top: 245px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+
+  .weening-logo {
+    max-width: 150px;
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+  }
+
+  .weening-logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 8px 16px rgba(255, 255, 255, 0.3));
+  }
+
+  .hero-fallback {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-fallback .weening-logo {
+    max-width: 400px;
+  }
+
+  /* Multi-movie layout (3+ movies) */
+  .todays-movies-multi {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    width: 1200px;
+    max-width: 100%;
+    margin: 0 auto;
+    flex-wrap: nowrap;
+  }
+
+  .todays-movies-multi .todays-movie-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+    max-width: 200px;
+  }
+
+  .todays-movies-multi .todays-movie-poster {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  }
+
+  .todays-movies-multi .movie-id {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    width: 200px;
+    line-height: 1.2;
+  }
+
+  .weening-logo-overlay-multi {
+    top: 200px;
+  }
+
+  @media (max-width: 768px) {
+    .todays-movies-title {
+      font-size: 2rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .todays-movies-date {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .todays-movies {
+      gap: 20px;
+      max-width: 100%;
+      padding: 0 5px;
+    }
+
+    .todays-movie-card {
+      flex: 1;
+      max-width: none;
+    }
+
+    .todays-movie-poster {
+      width: 150px;
+      max-width: 45vw;
+    }
+
+    .movie-id {
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+
+    .weening-logo-overlay {
+      top: 185px;
+    }
+
+    .weening-logo {
+      max-width: 100px;
+    }
+
+    /* Multi-movie mobile layout */
+    .todays-movies-multi {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: auto;
+      gap: 15px;
+      padding: 0 5px;
+    }
+
+    .todays-movies-multi .todays-movie-card {
+      flex: none;
+    }
+
+    .todays-movies-multi .todays-movie-poster {
+      width: 100%;
+      max-width: 120px;
+    }
+    .weening-logo-overlay-multi {
+      top: -30px;
+    }
+  }
+</style>
+
+<script>
+  // Get the logo element
+  const logo = document.getElementById('weening-logo');
+
+  // Create audio element
+  const audio = new Audio('/assets/audio/thriller-laugh.mp3');
+
+  // Add click event listener
+  if (logo) {
+    logo.addEventListener('click', function () {
+      // Play the audio
+      audio.play().catch(function (error) {
+        console.log('Audio playback failed:', error);
+      });
+    });
+  }
+
+  // Check localStorage and apply watched styling to movie buttons
+  function applyWatchedStyling() {
+    const movieButtons = document.querySelectorAll('.movie-card[data-tmdb-id]');
+
+    movieButtons.forEach((button) => {
+      const tmdbId = button.getAttribute('data-tmdb-id');
+      const isWatched = localStorage.getItem(`movie-${tmdbId}-watched`) === 'true';
+
+      if (isWatched) {
+        button.classList.add('watched');
+      } else {
+        button.classList.remove('watched');
+      }
+    });
+  }
+
+  // Apply styling on page load
+  applyWatchedStyling();
+
+  // Listen for storage changes (when user marks movies as watched in another tab)
+  window.addEventListener('storage', function (e) {
+    if (e.key && e.key.includes('movie-') && e.key.endsWith('-watched')) {
+      applyWatchedStyling();
+    }
+  });
+</script>
+
+<style>
+  :root {
+    --watched-color: #4ade80;
+  }
+
+  .movie-card.watched .todays-movie-poster {
+    box-shadow: 0 0 15px var(--watched-color), 0 0 30px var(--watched-color);
+    border: 2px solid var(--watched-color);
+    border-radius: 8px;
+  }
+</style>

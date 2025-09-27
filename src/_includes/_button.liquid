@@ -1,0 +1,118 @@
+{% assign button_text_clean = button_text | downcase | replace: ' ', '-' | replace: "'", '' %}
+{% assign button_id = 'btn-' | append: button_text_clean %}
+{% unless button_text %}{% assign button_text = '' %}{% endunless %}
+<a
+  href="{{ href }}"
+  class="btn"
+  id="{{ button_id }}"
+  {% if new_tab %}
+    target="_blank"
+  {% endif %}
+>
+  {% if image_src %}<img src="{{ image_src }}" class="calendar-icon">{% endif %}
+  {{ button_text }}
+</a>
+{% unless background_color %}{% assign background_color = '#ff6b35' %}{% endunless %}
+{% unless text_color %}{% assign text_color = '#ffffff' %}{% endunless %}
+{% unless hover_color %}{% assign hover_color = '#ff7a4a' %}{% endunless %}
+{% unless hover_text_color %}{% assign hover_text_color = text_color %}{% endunless %}
+{% unless shadow_color %}{% assign shadow_color = '#ff6b35' %}{% endunless %}
+<style>
+  #{{ button_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 48px 24px 20px;
+    background: {{ background_color }};
+    color: {{ text_color }};
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    box-shadow: 0 6px 20px {{ shadow_color }};
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  #{{ button_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  #{{ button_id }}:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px {{ shadow_color }};
+    background: {{ hover_color }};
+    color: {{ hover_text_color }};
+  }
+
+  #{{ button_id }}:hover::before {
+    left: 100%;
+  }
+
+  #{{ button_id }}:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px {{ shadow_color }};
+  }
+
+  #{{ button_id }}:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px {{ shadow_color }};
+  }
+
+  .calendar-icon {
+    height: 40px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .btn:hover .calendar-icon {
+    transform: scale(1.1);
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .btn {
+      padding: 20px 40px;
+      font-size: 0.65rem;
+      letter-spacing: 0.8px;
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .calendar-icon {
+      height: 36px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .btn {
+      padding: 18px 36px;
+      font-size: 0.6rem;
+      letter-spacing: 0.6px;
+      width: 100%;
+      max-width: 280px;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .calendar-icon {
+      height: 32px;
+    }
+  }
+</style>

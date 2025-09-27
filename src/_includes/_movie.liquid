@@ -1,0 +1,367 @@
+---
+layout: base.liquid
+---
+<div class="movie-container">
+  <div class="movie-content">
+    <div class="movie-poster">
+      <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster">
+    </div>
+    <div class="movie-details">
+      <h1 class="movie-title">{{ movie.title }}</h1>
+      {% if movie.tagline != blank%}
+        <div class="movie-tagline">{{ movie.tagline }}</div>
+      {% endif %}
+      <div class="movie-metadata">
+        <span class="release-date">{% if movie['release-year'] == "2025" %}🎉{% endif %}{{ movie['release-year'] }}{% if movie['release-year'] == "2025" %}🎉{% endif %}</span>
+        <span class="runtime">{{ movie.runtime }}</span>
+      </div>
+
+      <div class="movie-overview">
+        <p>{{ movie.plot }}</p>
+      </div>
+
+      {% if movie.notes %}
+      <div class="movie-notes">
+        <p>{{ movie.notes }}</p>
+      </div>
+      {% endif %}
+
+      {% if movie.trailer %}
+      {% assign trailer_id = movie.trailer | split: "?v=" | last %}
+      <div class="movie-trailer">
+        <iframe width="513" height="300" src="https://www.youtube.com/embed/{{ trailer_id }}" title="{{ movie.title }} Trailer" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      {% endif %}
+
+      <div class="movie-actions">
+        <a href="https://www.imdb.com/title/{{ movie.imdb }}" target="_blank">
+          <div class="action-button-container">
+            <button class="action-button">🎥</button>
+            <span class="action-label">View on IMDb</span>
+          </div>
+        </a>
+
+        {% if movie['scary-meter'] != blank %}
+          <a href="https://scarymeter.com/movie/{{ movie.tmdb }}" target="_blank">
+            <div class="action-button-container">
+              <button class="action-button">
+                {{ movie['scary-meter'] }}
+              </button>
+              <span class="action-label">Scary Meter</span>
+            </div>
+          </a>
+        {% endif %}
+
+        {% if movie['fandango'] != blank %}
+          <a href="{{ movie['fandango'] }}" target="_blank">
+            <div class="action-button-container">
+              <button class="action-button">🎟️</button>
+              <span class="action-label">Get Tickets</span>
+            </div>
+          </a>
+        {% endif %}
+
+        <div class="action-button-container">
+          <button class="action-button toggle-watched" data-movie-id="{{ movie.id }}" data-tmdb-id="{{ movie.tmdb }}">
+            <span class="watched-icon">👁️</span>
+          </button>
+          <span class="action-label">Mark as Watched</span>
+        </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .movie-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    min-height: 100vh;
+    color: white;
+  }
+
+  .movie-content {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .movie-poster {
+    flex: 0 0 auto;
+    position: relative;
+    margin-top: 60px;
+  }
+
+  .movie-poster img {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  }
+
+  .movie-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .movie-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: white;
+    line-height: 1.2;
+  }
+
+  .movie-metadata {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-size: 1rem;
+    color: #cccccc;
+  }
+
+  .movie-metadata span {
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .action-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+  }
+
+  .action-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+
+  .play-btn {
+    border-radius: 24px;
+    width: auto;
+    padding: 0 20px;
+    gap: 8px;
+  }
+
+  .btn-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .movie-tagline {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #cccccc;
+  }
+
+  .movie-overview h3,
+  .movie-credits h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: white;
+  }
+
+  .movie-overview p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+    margin: 0;
+  }
+
+  .movie-actions {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    max-width: 500px;
+  }
+
+  .action-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .action-button {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .action-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+  }
+
+  .action-label {
+    font-size: 0.9rem;
+    color: #cccccc;
+  }
+
+  .watched-icon {
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+  }
+
+  .toggle-watched.watched .watched-icon {
+    color: var(--watched-color);
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--watched-color) 50%, transparent));
+  }
+
+  .toggle-watched.watched {
+    background: color-mix(in srgb, var(--watched-color) 10%, transparent);
+    border-color: var(--watched-color);
+  }
+
+  .movie-trailer {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  @media (max-width: 768px) {
+    .movie-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .movie-poster img {
+      width: 250px;
+    }
+
+    .movie-metadata {
+      justify-content: center;
+    }
+
+    .movie-trailer {
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    .movie-trailer iframe {
+      width: 100vw;
+      height: 56.25vw; /* 16:9 aspect ratio */
+      max-height: 315px;
+      margin-left: calc(-50vw + 50%);
+    }
+  }
+</style>
+
+<script>
+console.log('Movie script loaded!');
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    console.log('DOM Content Loaded - starting movie script');
+    // Get all toggle-watched buttons
+    const watchedButtons = document.querySelectorAll('.toggle-watched');
+    console.log('Found', watchedButtons.length, 'watched buttons');
+    
+    // Debug: Check if buttons exist and have the right attributes
+    watchedButtons.forEach((button, index) => {
+      console.log(`Button ${index}:`, {
+        movieId: button.getAttribute('data-movie-id'),
+        tmdbId: button.getAttribute('data-tmdb-id'),
+        classes: button.className
+      });
+    });
+  
+  // Load saved watched state from localStorage
+  function loadWatchedState() {
+    watchedButtons.forEach(button => {
+      const movieId = button.getAttribute('data-movie-id');
+      const tmdbId = button.getAttribute('data-tmdb-id');
+      console.log('Loading watched state for movie:', movieId, 'tmdb:', tmdbId);
+      
+      const isWatched = localStorage.getItem(`movie-${tmdbId}-watched`) === 'true';
+      console.log('Is watched:', isWatched);
+      
+      if (isWatched) {
+        button.classList.add('watched');
+        console.log('Added watched class to button');
+      }
+    });
+  }
+  
+  // Save watched state to localStorage with movie data
+  function saveWatchedState(movieId, tmdbId, isWatched) {
+    const watchedKey = `movie-${tmdbId}-watched`;
+    console.log('Saving to localStorage:', watchedKey, '=', isWatched);
+    localStorage.setItem(watchedKey, isWatched.toString());
+    
+    if (isWatched) {
+      // Store movie data for the watched movies list
+      const movieData = {
+        id: movieId,
+        tmdb: tmdbId,
+        title: {{ movie.title | json }},
+        poster: {{ movie.poster | json }},
+        date: {{ movie.date | json }},
+        type: {{ movie.type | json }},
+        'release-year': {{ movie["release-year"] | json }},
+        runtime: {{ movie.runtime | json }}
+      };
+      const dataKey = `movie-${tmdbId}-data`;
+      console.log('Saving movie data to:', dataKey, movieData);
+      localStorage.setItem(dataKey, JSON.stringify(movieData));
+    } else {
+      // Remove movie data when unwatched
+      const dataKey = `movie-${tmdbId}-data`;
+      console.log('Removing movie data from:', dataKey);
+      localStorage.removeItem(dataKey);
+    }
+  }
+  
+  // Add click event listeners
+  watchedButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const movieId = this.getAttribute('data-movie-id');
+      const tmdbId = this.getAttribute('data-tmdb-id');
+      const isCurrentlyWatched = this.classList.contains('watched');
+      
+      console.log('Button clicked! Movie ID:', movieId, 'TMDB ID:', tmdbId, 'Currently watched:', isCurrentlyWatched);
+      
+      // Toggle the watched state
+      if (isCurrentlyWatched) {
+        this.classList.remove('watched');
+        saveWatchedState(movieId, tmdbId, false);
+        console.log('Marked as NOT watched');
+      } else {
+        this.classList.add('watched');
+        saveWatchedState(movieId, tmdbId, true);
+        console.log('Marked as watched');
+      }
+    });
+  });
+  
+  // Load initial state
+  loadWatchedState();
+  } catch (error) {
+    console.error('Error in movie script:', error);
+  }
+});
+</script>

@@ -1,0 +1,512 @@
+:root {
+    /* 2025 Color Palette */
+    --black: #000000;
+    --white: #ffffff;
+    --bone: #ffecd9;
+    --hollow: #2e2014;
+    --pumpkin: #ff7913;
+    --harvest: #f76046;
+    --smile: #0d0703;
+    --pumpkin-shadow: #ee6a2c;
+    --halloween: #ffa25a;
+    --blank: #f9f5e9;
+    --pumpkin-dark: #bf5b0e;
+    --magic: #9e369f;
+    --twilight: #cdc2fd;
+    --dark-sky: #2d2d2d;
+}
+
+body {
+    background-image: url('/assets/img/2025-background.svg');
+    background-repeat: repeat;
+    background-size: 30%;
+    background-position: center;
+    border: none;
+}
+
+
+@font-face {
+    font-family: 'Stella';
+    src: url('/public/fonts/Stella.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Anantason';
+    src: url('/public/fonts/Anantason-Bold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.nav-links,
+.nav-dropdown-toggle,
+.mobile-nav-link,
+.mobile-nav-title,
+.movie-id {
+    font-family: 'Anantason', sans-serif;
+}
+
+/* Calendar styles */
+.calendar-title {
+    margin-bottom: 0;
+
+    h1 {
+        font-size: 8vw;
+        margin-bottom: -2.5rem;
+    }
+
+    h2 {
+        font-size: 3.5vw;
+        margin-bottom: -1rem;
+    }
+}
+
+.key-legend {
+    font-family: 'Anantason', sans-serif;
+    font-size: 3rem;
+}
+
+.key-title {
+    font-family: 'Stella', sans-serif;
+    text-transform: uppercase;
+    font-size: 2rem;
+}
+
+.key-icon {
+    height: 0.5em;
+}
+
+@media (max-width: 768px) {
+    .calendar-title {
+        margin-bottom: 0;
+        padding: 0;
+    }
+
+    .calendar-title h1 {
+        margin-bottom: 0.5rem;
+        font-size: 3rem;
+    }
+
+    .calendar-title h2 {
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+}
+
+h1 {
+    font-family: 'Stella', sans-serif;
+    text-transform: uppercase;
+    color: var(--white);
+
+    text-shadow: 4px 4px 0px var(--black), 8px 8px 0px var(--smile), 12px 12px 0px var(--dark-sky);
+}
+
+h2 {
+    font-family: 'Stella', sans-serif;
+    text-transform: uppercase;
+    color: var(--twilight);
+    text-shadow: 2px 2px 0px var(--black), 4px 4px 0px var(--smile), 6px 6px 0px var(--dark-sky);
+}
+
+.screening-date {
+    font-family: 'Anantason', sans-serif;
+}
+
+.movie-metadata {
+    font-family: 'Anantason', sans-serif;
+    color: var(--bone);
+}
+
+.calendar-header-cell {
+    background-color: var(--twilight);
+    color: var(--black);
+    font-family: 'Anantason', sans-serif !important;
+}
+
+.calendar-cell {
+    background-color: var(--blank);
+    color: var(--black);
+}
+
+.calendar-cell.empty,
+.calendar-cell.empty:hover {
+    background-color: var(--twilight);
+}
+
+.calendar-cell:hover {
+    background-color: var(--blank);
+    border-color: var(--magic);
+}
+
+.calendar-cell.today {
+    background-color: var(--blank);
+    border-color: var(--magic);
+    border-width: 3px;
+    box-shadow: inset 0 0 15px var(--magic), 0 0 15px var(--magic),
+        inset 0 0 30px var(--magic), 0 0 30px var(--magic);
+}
+
+.calendar-cell.today .date {
+    color: var(--magic);
+    text-shadow: 0 0 15px var(--magic), 0 0 30px var(--magic);
+}
+
+.calendar-cell.halloween {
+    background-color: var(--halloween);
+    color: var(--black);
+}
+
+.date {
+    color: var(--black) !important;
+    font-family: 'Anantason', sans-serif !important;
+}
+
+.weenie-btn {
+    background-color: var(--pumpkin);
+    color: var(--smile);
+    font-family: 'Anantason', sans-serif !important;
+}
+
+.weenie-btn:hover {
+    background-color: var(--pumpkin-shadow);
+    color: var(--white);
+}
+
+.ween-btn {
+    background-color: var(--dark-sky);
+    color: var(--white);
+    font-family: 'Anantason', sans-serif !important;
+}
+
+.ween-btn:hover {
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.new-release {
+    position: relative;
+    padding-left: 2.5rem;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 2rem;
+        width: 2rem;
+        background-image: url('/assets/img/weening-skull-black.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}
+
+.mobile-layout {
+    background-color: transparent;
+}
+
+/* Web background for empty calendar cells */
+.calendar-cell.empty {
+    background-image: url('/assets/img/web-1.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Exclude web background from calendar-key cells */
+.calendar-cell.empty.calendar-key {
+    background-image: none;
+}
+
+@media (max-width: 768px) {
+    .calendar-cell.empty {
+        background-image: url('/assets/img/web-1.png');
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    /* Exclude web background from calendar-key cells on mobile too */
+    .calendar-cell.empty.calendar-key {
+        background-image: none;
+    }
+}
+
+body {
+    background-image: url('/assets/img/2025-background.svg');
+    background-repeat: repeat;
+    background-size: 30%;
+    background-position: center;
+    border: none;
+}
+
+
+@font-face {
+    font-family: 'Stella';
+    src: url('/public/fonts/Stella.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Anantason';
+    src: url('/public/fonts/Anantason-Bold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.nav-links,
+.nav-dropdown-toggle,
+.mobile-nav-link,
+.mobile-nav-title,
+.movie-id {
+    font-family: 'Anantason', sans-serif;
+}
+
+/* Calendar styles */
+.calendar-title {
+    margin-bottom: 0;
+
+    h1 {
+        font-size: 8vw;
+        margin-bottom: -2.5rem;
+    }
+
+    h2 {
+        font-size: 3.5vw;
+        margin-bottom: -1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .calendar-title {
+        margin-bottom: 0;
+        padding: 0;
+    }
+
+    .calendar-title h1 {
+        margin-bottom: 0.5rem;
+        font-size: 3rem;
+    }
+
+    .calendar-title h2 {
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+}
+
+h1 {
+    font-family: 'Stella', sans-serif;
+    text-transform: uppercase;
+    color: var(--white);
+
+    text-shadow: 4px 4px 0px var(--black), 8px 8px 0px var(--smile), 12px 12px 0px var(--dark-sky);
+}
+
+h2 {
+    font-family: 'Stella', sans-serif;
+    text-transform: uppercase;
+    color: var(--twilight);
+    text-shadow: 2px 2px 0px var(--black), 4px 4px 0px var(--smile), 6px 6px 0px var(--dark-sky);
+}
+
+.screening-date {
+    font-family: 'Anantason', sans-serif;
+}
+
+.movie-metadata {
+    font-family: 'Anantason', sans-serif;
+    color: var(--bone);
+}
+
+.calendar-header-cell {
+    background-color: var(--twilight);
+    color: var(--black);
+    font-family: 'Anantason', sans-serif !important;
+}
+
+.calendar-cell {
+    background-color: var(--blank);
+    color: var(--black);
+}
+
+.calendar-cell.empty,
+.calendar-cell.empty:hover {
+    background-color: var(--twilight);
+}
+
+.calendar-cell:hover {
+    background-color: var(--blank);
+    border-color: var(--magic);
+}
+
+.calendar-cell.today {
+    background-color: var(--blank);
+    border-color: var(--magic);
+    border-width: 3px;
+    box-shadow: inset 0 0 15px var(--magic), 0 0 15px var(--magic),
+        inset 0 0 30px var(--magic), 0 0 30px var(--magic);
+}
+
+.calendar-cell.today .date {
+    color: var(--magic);
+    text-shadow: 0 0 15px var(--magic), 0 0 30px var(--magic);
+}
+
+.calendar-cell.halloween {
+    background-color: var(--halloween);
+    color: var(--black);
+}
+
+.date {
+    color: var(--black) !important;
+    font-family: 'Anantason', sans-serif !important;
+}
+
+.weenie-btn {
+    background-color: var(--pumpkin);
+    color: var(--smile);
+    font-family: 'Anantason', sans-serif !important;
+}
+
+.weenie-btn:hover {
+    background-color: var(--pumpkin-shadow);
+    color: var(--white);
+}
+
+.ween-btn {
+    background-color: var(--dark-sky);
+    color: var(--white);
+    font-family: 'Anantason', sans-serif !important;
+}
+
+.ween-btn:hover {
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.new-release {
+    position: relative;
+    padding-left: 2.5rem;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 2rem;
+        width: 2rem;
+        background-image: url('/assets/img/weening-skull-black.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}
+
+.mobile-layout {
+    background-color: transparent;
+}
+
+/* Web background for empty calendar cells */
+.calendar-cell.empty {
+    background-image: url('/assets/img/web-1.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+    .calendar-cell.empty {
+        background-image: url('/assets/img/web-1.png');
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .calendar-grid::before,
+    .calendar-grid::after {
+        display: none;
+    }
+}
+
+/* Stromboli Joe overlay anchored to the top of the calendar grid */
+.calendar-grid {
+    position: relative;
+    overflow: visible;
+}
+
+.calendar-grid::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% - 28px);
+    right: -24px;
+    width: 400px;
+    height: 400px;
+    background-image: url('/assets/img/stromboli-joe.png');
+    background-size: contain;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Ensure proper stacking order */
+.calendar-title {
+    position: relative;
+    z-index: 2;
+}
+
+.calendar-wrapper {
+    position: relative;
+    z-index: 0;
+}
+
+.calendar-grid {
+    position: relative;
+    overflow: visible;
+}
+
+.calendar-grid::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% - 28px);
+    right: -24px;
+    width: 400px;
+    height: 400px;
+    background-image: url('/assets/img/stromboli-joe.png');
+    background-size: contain;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.calendar-grid::after {
+    content: '';
+    position: absolute;
+    bottom: calc(100% - 28px);
+    left: 85px;
+    width: 200px;
+    height: 400px;
+    background-image: url('/assets/img/yoga-skeleton.png');
+    background-size: contain;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.calendar-title {
+    position: relative;
+    z-index: 2;
+}
+
+.calendar-wrapper {
+    position: relative;
+    z-index: 0;
+}

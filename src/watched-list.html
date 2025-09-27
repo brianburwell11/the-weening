@@ -1,0 +1,262 @@
+---
+layout: base.liquid
+title: My Watched Movies
+css: ["movie-grid.css"]
+---
+
+<div class="watched-movies-container">
+  <h1>Your Watched Movies</h1>
+  <p class="watched-count">You've watched <span id="watched-count">0</span> <span id="movie-text">movies</span></p>
+
+  <h2 class="movie-type-breakdown">
+    <span class="type-counter">
+      <img src="/assets/img/weening-skull.png" alt="Ween" class="type-icon">
+      <span id="weens-count">0</span>
+    </span>
+    <span class="type-counter">
+      <img src="/assets/img/weening-pumpkin.png" alt="Weenie" class="type-icon">
+      <span id="weenies-count">0</span>
+    </span>
+    <span class="type-counter">
+      <img src="/assets/img/weening-lolly.png" alt="Bonus" class="type-icon">
+      <span id="bonus-count">0</span>
+    </span>
+  </h2>
+
+  <div id="watched-movies-grid" class="movies-grid">
+    <!-- Movies will be populated by JavaScript -->
+  </div>
+
+  <div id="no-movies-message" class="no-movies" style="display: none;">
+    <p>You haven't marked any movies as watched yet!</p>
+    <p>Go back to the <a href="/">calendar</a> and start watching some movies.</p>
+  </div>
+</div>
+
+<style>
+  .watched-movies-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .watched-movies-container h1 {
+    font-family: 'Stella', sans-serif;
+    font-size: 3rem;
+    color: var(--white);
+    text-shadow: 4px 4px 0px var(--black), 8px 8px 0px var(--smile), 12px 12px 0px var(--dark-sky);
+    margin-bottom: 1rem;
+  }
+
+  .watched-count {
+    font-size: 1.2rem;
+    color: var(--twilight);
+    margin-bottom: 1rem;
+  }
+
+  .movie-type-breakdown {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    font-family: 'Stella', sans-serif;
+    font-size: 1.1rem;
+    color: var(--white);
+  }
+
+  .type-counter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+  }
+
+  .type-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+
+  .no-movies {
+    padding: 3rem;
+    color: var(--twilight);
+  }
+
+  .no-movies a {
+    color: var(--pumpkin);
+    text-decoration: none;
+  }
+
+  .no-movies a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .watched-movies-container h1 {
+      font-size: 2rem;
+    }
+
+    .watched-movies-container {
+      padding: 1rem;
+    }
+
+    .movie-type-breakdown {
+      flex-direction: row;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .type-counter {
+      padding: 0.4rem 0.8rem;
+    }
+
+    .type-icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+</style>
+
+<script>
+  console.log('Watched list script loaded!');
+  document.addEventListener('DOMContentLoaded', function () {
+    try {
+      console.log('DOM Content Loaded - starting watched movies script');
+      const watchedMoviesGrid = document.getElementById('watched-movies-grid');
+      const noMoviesMessage = document.getElementById('no-movies-message');
+      const watchedCount = document.getElementById('watched-count');
+      const weensCount = document.getElementById('weens-count');
+      const weeniesCount = document.getElementById('weenies-count');
+      const bonusCount = document.getElementById('bonus-count');
+
+      // Get all watched movies with their data from localStorage
+      function getWatchedMovies() {
+        const watchedMovies = [];
+
+        // Get all localStorage keys that start with 'movie-' and end with '-watched'
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && key.startsWith('movie-') && key.endsWith('-watched')) {
+            const isWatched = localStorage.getItem(key) === 'true';
+            if (isWatched) {
+              const tmdbId = key.replace('movie-', '').replace('-watched', '');
+
+              // Get the stored movie data
+              const movieDataKey = `movie-${tmdbId}-data`;
+              const movieDataStr = localStorage.getItem(movieDataKey);
+
+              if (movieDataStr) {
+                try {
+                  const movieData = JSON.parse(movieDataStr);
+                  console.log('Retrieved movie data for', tmdbId, ':', movieData); // Debug log
+                  watchedMovies.push(movieData);
+                } catch (e) {
+                  console.error('Error parsing movie data for', tmdbId, e);
+                }
+              }
+            }
+          }
+        }
+
+        return watchedMovies;
+      }
+
+      // Display watched movies
+      function displayWatchedMovies() {
+        const watchedMovies = getWatchedMovies();
+        const count = watchedMovies.length;
+
+        watchedCount.textContent = count;
+
+        // Count different movie types
+        let weens = 0;
+        let weenies = 0;
+        let bonus = 0;
+
+        watchedMovies.forEach(movie => {
+          if (movie.type === 'Ween') {
+            weens++;
+          } else if (movie.type === 'Weenie') {
+            weenies++;
+          } else if (movie.type === 'Bonus') {
+            bonus++;
+          }
+        });
+
+        // Update type counters
+        weensCount.textContent = weens;
+        weeniesCount.textContent = weenies;
+        bonusCount.textContent = bonus;
+
+        if (count === 0) {
+          watchedMoviesGrid.style.display = 'none';
+          noMoviesMessage.style.display = 'block';
+          return;
+        }
+
+        watchedMoviesGrid.style.display = 'grid';
+        noMoviesMessage.style.display = 'none';
+
+        // Clear existing content
+        watchedMoviesGrid.innerHTML = '';
+
+        // Add each watched movie
+        watchedMovies.forEach(movieData => {
+          const movieCard = createMovieCard(movieData);
+          watchedMoviesGrid.appendChild(movieCard);
+        });
+      }
+
+      // Slugify function to match Liquid's slugify filter
+      function slugify(text) {
+        return text.toString()
+          .toLowerCase()
+          .replace(/\s+/g, '-')           // Replace spaces with -
+          .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+          .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+          .replace(/^-+/, '')             // Trim - from start of text
+          .replace(/-+$/, '');            // Trim - from end of text
+      }
+
+      // Create a movie card element
+      function createMovieCard(movie) {
+        console.log('Creating card for movie:', movie); // Debug log
+
+        const card = document.createElement('a');
+        card.href = `/movies/${slugify(movie.tmdb)}/`;
+        card.className = 'movie-card';
+
+        card.innerHTML = `
+        <div class="movie-poster">
+          <img src="${movie.poster}" alt="${movie.title} Poster" onerror="this.src='/assets/img/placeholder-poster.jpg'">
+        </div>
+        <div class="movie-info">
+          <div class="movie-title">${movie.id}</div>
+        </div>
+      `;
+
+        return card;
+      }
+
+      // Initial load
+      displayWatchedMovies();
+
+      // Listen for storage changes (in case user marks movies as watched in another tab)
+      window.addEventListener('storage', function (e) {
+        if (e.key && e.key.includes('movie-') && e.key.endsWith('-watched')) {
+          displayWatchedMovies();
+        }
+      });
+    } catch (error) {
+      console.error('Error in watched movies script:', error);
+    }
+  });
+</script>

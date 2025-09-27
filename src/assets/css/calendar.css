@@ -1,0 +1,421 @@
+/* Calendar Section */
+:root {
+    --ween-color: #bf5b0e;
+    --weenie-color: #ff9442;
+}
+
+.calendar-section {
+    padding: 0;
+}
+
+.calendar-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.calendar-title {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.calendar-title h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.calendar-wrapper {
+    padding: 1rem 2rem 2rem 2rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: auto repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.calendar-header-cell {
+    background: #0b0512;
+    color: #ffffff;
+    padding: 1rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.calendar-cell {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.calendar-cell:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--primary-color);
+}
+
+.calendar-cell.today {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.calendar-cell.today .date {
+    color: var(--primary-color);
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.calendar-cell.halloween {
+    grid-column: span 2;
+}
+
+.calendar-cell.halloween .ween-btn,
+.calendar-cell.halloween .weenie-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.calendar-cell.empty {
+    background: rgba(255, 255, 255, 0.01);
+    color: var(--text-secondary);
+}
+
+.calendar-cell .date {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+}
+
+.calendar-cell .day-name {
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.calendar-cell .content {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.event-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.ween-btn,
+.weenie-btn {
+    color: var(--text-primary);
+    border: none;
+    padding: 1.25rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: 100%;
+    text-align: center;
+}
+
+.ween-btn {
+    background: var(--ween-color);
+}
+
+.ween-btn:hover {
+    background: #d46a0f;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(191, 91, 14, 0.4);
+}
+
+.weenie-btn {
+    background: var(--weenie-color);
+}
+
+.weenie-btn:hover {
+    background: #ffa052;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(255, 148, 66, 0.4);
+}
+
+/* Mobile Design - Vertical Card Layout */
+@media (max-width: 768px) {
+    .calendar-container {
+        padding: 0;
+    }
+
+    .calendar-title {
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 1rem;
+    }
+
+    .calendar-title h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .calendar-wrapper {
+        padding: 0;
+    }
+
+    /* Hide the grid layout on mobile */
+    .calendar-grid {
+        display: none;
+    }
+
+    /* Show mobile calendar layout */
+    .calendar-grid.mobile-layout {
+        display: block;
+        padding: 1rem;
+    }
+
+    /* Mobile calendar cards */
+    .calendar-cell {
+        background: white;
+        border-radius: 16px;
+        margin-bottom: 1rem;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        min-height: auto;
+        text-align: left;
+        position: relative;
+    }
+
+
+    /* Day info section */
+    .calendar-cell .day-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 60px;
+    }
+
+    .calendar-cell .date {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0;
+        color: #333;
+        line-height: 1;
+    }
+
+    .calendar-cell .day-name {
+        font-size: 0.9rem;
+        font-weight: 400;
+        color: #666;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.25rem;
+    }
+
+    /* Event timeline section */
+    .event-buttons {
+        flex: 1;
+        margin-left: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    /* Timeline markers */
+    .calendar-cell {
+        position: relative;
+    }
+
+    /* Event buttons as timeline items */
+    .ween-btn,
+    .weenie-btn {
+        background: #333;
+        color: white;
+        border: none;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+        position: relative;
+        margin-left: 1rem;
+        z-index: 2;
+        text-decoration: none;
+        display: block;
+    }
+
+    .ween-btn {
+        background: #8b5cf6;
+        /* Purple for weens */
+    }
+
+    .weenie-btn {
+        background: #f59e0b;
+        /* Orange for weenies */
+    }
+
+    .ween-btn:hover,
+    .weenie-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Add event button */
+    .calendar-cell .add-event-btn {
+        background: #f3f4f6;
+        color: #6b7280;
+        border: 1px dashed #d1d5db;
+        padding: 0.5rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+        margin-left: 1rem;
+        margin-top: 0.5rem;
+        z-index: 2;
+        position: relative;
+    }
+
+    .calendar-cell .add-event-btn:hover {
+        background: #e5e7eb;
+        border-color: #9ca3af;
+    }
+
+    /* Empty cells styling */
+    .calendar-cell.empty {
+        background: #f9fafb;
+        color: #9ca3af;
+        border: 1px dashed #d1d5db;
+    }
+
+    .calendar-cell.empty .date {
+        color: #9ca3af;
+    }
+
+    /* Today highlighting */
+    .calendar-cell.today {
+        border: 2px solid #3b82f6;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    }
+
+    .calendar-cell.today .date {
+        color: #3b82f6;
+    }
+
+    /* Halloween special styling */
+    .calendar-cell.halloween {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        color: white;
+    }
+
+    .calendar-cell.halloween .date,
+    .calendar-cell.halloween .day-name {
+        color: white;
+    }
+}
+
+/* Hide mobile layout on desktop */
+/* Calendar Key Styles */
+.calendar-key {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem !important;
+}
+
+.key-content {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--black);
+}
+
+.key-title {
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    font-family: 'Anantason', sans-serif;
+    font-size: 1rem;
+}
+
+.key-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.key-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    justify-content: center;
+}
+
+.key-color {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.ween-color {
+    background-color: var(--dark-sky);
+}
+
+.weenie-color {
+    background-color: var(--pumpkin);
+}
+
+.bonus-color {
+    background-color: var(--magic);
+}
+
+.key-text {
+    font-family: 'Anantason', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.1rem;
+}
+
+/* Hide calendar key on mobile */
+@media (max-width: 768px) {
+    .calendar-key {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .calendar-grid.mobile-layout {
+        display: none;
+    }
+}

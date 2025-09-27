@@ -1,0 +1,62 @@
+---
+title: The 'Weening
+css:
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% if movie %}{{ movie.id }}{% else %}{{ title }}{% endif %}
+    </title>
+    <meta name="description" content="The Weening">
+    <meta name="author" content="The Weening">
+    {% unless meta-image %}{% assign meta-image = '/assets/img/weening-meta.png' %}{% endunless %}
+    <meta
+      property="og:image"
+      content="{{meta-image}}"
+    >
+    <meta
+      property="og:image:alt"
+      content="The 'Weening"
+    >
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="The 'Weening - A Halloween Movie Marathon">
+
+    {% unless favicon %}{% assign favicon = '/assets/img/weening-skull.png' %}{% endunless %}
+    <link rel="icon" type="image/png" href="{{favicon}}">
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/modal.css">
+    {% unless movie %}
+      <link rel="stylesheet" href="/assets/css/2025.css">
+    {% endunless %}
+    {% if css %}
+      {% for stylesheet in css %}
+        <link rel="stylesheet" href="/assets/css/{{ stylesheet }}">
+      {% endfor %}
+    {% endif %}
+  </head>
+
+  <body>
+    {% unless movie %}
+      {% include '_header.liquid' %}
+    {% endunless %}
+    <main>
+      {{ content }}
+    </main>
+    {% unless movie %}
+      {% include '_footer.liquid' %}
+    {% endunless %}
+
+    {{ scripts }}
+    <script src="/assets/js/modal.js"></script>
+  </body>
+</html>

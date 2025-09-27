@@ -1,0 +1,79 @@
+---
+title: 2025 Weenies
+favicon: /assets/img/weening-pumpkin.png
+---
+<h1 class="sticky-header">
+    <span class="header-content">
+        <img src="/assets/img/weening-pumpkin.png" alt="treat" class="title-icon">
+        {{ title}}
+    </span>
+</h1>
+
+
+<div class="movies-grid">
+    {% for movie in weening2025 %}
+    {% if movie.type == "Weenie" %}
+    <a href="/movies/{{ movie.tmdb | slugify }}/" class="movie-card" data-tmdb-id="{{ movie.tmdb }}">
+        <div class="screening-date">
+            {% assign date_parts = movie.date | split: "-" %}
+            {% assign day = date_parts[2] | plus: 0 %}
+            Oct {{ day }}
+        </div>
+        <div class="movie-poster">
+            <img src="{{ movie.poster }}" alt="{{ movie.title }} Poster">
+        </div>
+        <div class="movie-info">
+            <h2 class="movie-title">{{ movie.title }}</h2>
+            <div class="movie-metadata">
+                <span class="release-date">{% if movie['release-year']
+                    == "2025" %}🎉{% endif %}{{ movie['release-year']
+                    }}{% if movie['release-year'] == "2025" %}🎉{% endif %}</span>
+                <span class="runtime">{{ movie.runtime }}</span>
+            </div>
+        </div>
+    </a>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<style>
+    :root {
+        --watched-color: #4ade80;
+    }
+
+    .movie-card.watched .movie-poster img {
+        box-shadow: 0 0 15px var(--watched-color), 0 0 30px var(--watched-color);
+        border: 2px solid var(--watched-color);
+        border-radius: 8px;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Check localStorage and apply watched styling to movie buttons
+        function applyWatchedStyling() {
+            const movieButtons = document.querySelectorAll('.movie-card[data-tmdb-id]');
+
+            movieButtons.forEach((button) => {
+                const tmdbId = button.getAttribute('data-tmdb-id');
+                const isWatched = localStorage.getItem(`movie-${tmdbId}-watched`) === 'true';
+
+                if (isWatched) {
+                    button.classList.add('watched');
+                } else {
+                    button.classList.remove('watched');
+                }
+            });
+        }
+
+        // Apply styling on page load
+        applyWatchedStyling();
+
+        // Listen for storage changes (when user marks movies as watched in another tab)
+        window.addEventListener('storage', function (e) {
+            if (e.key && e.key.includes('movie-') && e.key.endsWith('-watched')) {
+                applyWatchedStyling();
+            }
+        });
+    });
+</script>

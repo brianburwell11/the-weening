@@ -1,0 +1,76 @@
+{% comment %}
+  Countdown Timer Subtemplate
+  Usage: {% include '_countdown-timer.liquid', title: 'The Weening calendar releases in', targetDate: '2025-09-27T10:31:00-04:00' %}
+
+  Parameters:
+  - title: The text to display above the countdown (default: 'The Weening calendar releases in')
+  - targetDate: The target date in ISO format (default: '2025-09-27T10:31:00-04:00')
+  - announcement: The text to display when the countdown reaches zero (default: "The 'Weening is here!")
+
+  This template includes:
+  - HTML structure for the countdown timer
+  - JavaScript functionality for the countdown
+{% endcomment %}
+
+{% unless title %}{% assign title = "The 'Weening calendar releases in" %}{% endunless %}
+{% unless targetDate %}{% assign targetDate = '2025-09-27T10:31:00-04:00' %}{% endunless %}
+{% unless announcement %}{% assign announcement = "The 'Weening is here!" %}{% endunless %}
+
+<!-- Countdown Timer -->
+<div class="countdown-container">
+  <h2 class="countdown-title">{{ title }}</h2>
+  <div class="countdown-timer" id="countdown-timer">
+    <div class="time-unit">
+      <span class="time-value" id="days">0</span>
+      <span class="time-label">Days</span>
+    </div>
+    <div class="time-unit">
+      <span class="time-value" id="hours">0</span>
+      <span class="time-label">Hours</span>
+    </div>
+    <div class="time-unit">
+      <span class="time-value" id="minutes">0</span>
+      <span class="time-label">Minutes</span>
+    </div>
+    <div class="time-unit">
+      <span class="time-value" id="seconds">0</span>
+      <span class="time-label">Seconds</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Countdown Timer Functionality
+  function updateCountdown() {
+    // Target date from parameter
+    const targetDate = new Date('{{ targetDate }}');
+    const now = new Date();
+    const timeDifference = targetDate - now;
+
+    if (timeDifference > 0) {
+      // Calculate time units
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+      // Update the display
+      document.getElementById('days').textContent = days.toString();
+      document.getElementById('hours').textContent = hours.toString();
+      document.getElementById('minutes').textContent = minutes.toString();
+      document.getElementById('seconds').textContent = seconds.toString();
+    } else {
+      // Countdown has reached zero
+      document.getElementById('days').textContent = '0';
+      document.getElementById('hours').textContent = '0';
+      document.getElementById('minutes').textContent = '0';
+      document.getElementById('seconds').textContent = '0';
+
+      document.querySelector('.countdown-title').textContent = "{{ announcement }}";
+    }
+  }
+
+  // Initialize countdown and update every second
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
