@@ -9,7 +9,7 @@
     <h1 class="todays-movies-title">Today's Movies</h1>
     {% assign date_parts = target_date | split: '-' %}
     {% assign year = date_parts[0] %}
-    {% assign day = date_parts[2] %}
+    {% assign day = date_parts[2] | plus: 0 %}
     <h2 class="todays-movies-date">October {{ day }}, {{ year }}</h2>
     {% if day_movies.size <= 2 %}
       <!-- 2-movie layout -->
@@ -224,7 +224,7 @@
     }
 
     .todays-movies {
-      gap: 20px;
+      gap: 0px;
       max-width: 100%;
       padding: 0 5px;
     }
