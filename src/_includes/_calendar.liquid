@@ -136,7 +136,7 @@
           {% assign day_movies = dataSet | where: 'date', day_str %}
 
           {% comment %} Calculate which day of the week this is {% endcomment %}
-          {% assign day_of_week_index = day | plus: monthStartsOnWeekday | minus: 2 %}
+          {% assign day_of_week_index = day | plus: monthStartsOnWeekday | minus: 1 %}
           {% assign day_of_week_index = day_of_week_index | modulo: 7 %}
           {% assign day_name = day_names[day_of_week_index] %}
 
