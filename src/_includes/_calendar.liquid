@@ -95,11 +95,12 @@
           {% assign is_today = false %}
           {% assign year_string = year | append: '' %}
           {% assign day_string = day | append: '' %}
-          {% if year_string == today_year and today_month == '10' and day_string == today_day %}
+          {% assign today_day_numeric = today_day | plus: 0 %}
+          {% if year_string == today_year and today_month == '10' and day == today_day_numeric %}
             {% assign is_today = true %}
           {% endif %}
           <!--
-            Debug: year={{ year }}, today_year={{ today_year }}, today_month={{ today_month }}, day={{ day }}, day_string={{ day_string }}, today_day={{ today_day }}, is_today={{ is_today }}
+            Debug: year={{ year }}, today_year={{ today_year }}, today_month={{ today_month }}, day={{ day }}, day_string={{ day_string }}, today_day={{ today_day }}, today_day_numeric={{ today_day_numeric }}, is_today={{ is_today }}
           -->
           {% assign is_halloween = false %}
           {% if day == 31 %}
@@ -143,7 +144,8 @@
           {% assign is_today = false %}
           {% assign year_string = year | append: '' %}
           {% assign day_string = day | append: '' %}
-          {% if year_string == today_year and today_month == '10' and day_string == today_day %}
+          {% assign today_day_numeric = today_day | plus: 0 %}
+          {% if year_string == today_year and today_month == '10' and day == today_day_numeric %}
             {% assign is_today = true %}
           {% endif %}
 
