@@ -37,7 +37,7 @@ layout: base.liquid
         <a href="https://www.imdb.com/title/{{ movie.imdb }}" target="_blank">
           <div class="action-button-container">
             <button class="action-button">🎥</button>
-            <span class="action-label">View on IMDb</span>
+            <span class="action-label">IMDb</span>
           </div>
         </a>
 
@@ -56,10 +56,17 @@ layout: base.liquid
           <a href="{{ movie['fandango'] }}" target="_blank">
             <div class="action-button-container">
               <button class="action-button">🎟️</button>
-              <span class="action-label">Get Tickets</span>
+              <span class="action-label">Tickets</span>
             </div>
           </a>
         {% endif %}
+
+        <a href="https://www.wherecaniwatchthis.tv/?movie={{ movie.tmdb }}" target="_blank">
+          <div class="action-button-container">
+            <button class="action-button">📺</button>
+            <span class="action-label">Streaming Options</span>
+          </div>
+        </a>
 
         <div class="action-button-container">
           <button class="action-button toggle-watched" data-movie-id="{{ movie.id }}" data-tmdb-id="{{ movie.tmdb }}">
@@ -194,6 +201,16 @@ layout: base.liquid
     max-width: 500px;
   }
 
+  .movie-actions a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .movie-actions a:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+
   .action-button-container {
     display: flex;
     flex-direction: column;
@@ -202,14 +219,15 @@ layout: base.liquid
   }
 
   .action-button {
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     border: 2px solid #ffffff;
     background: transparent;
     color: white;
     cursor: pointer;
     transition: all 0.2s ease;
+    text-decoration: none;
   }
 
   .action-button:hover {
@@ -220,6 +238,10 @@ layout: base.liquid
   .action-label {
     font-size: 0.9rem;
     color: #cccccc;
+    text-align: center;
+    width: 60px;
+    word-wrap: normal;
+    white-space: normal;
   }
 
   .watched-icon {
