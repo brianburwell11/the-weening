@@ -8,8 +8,10 @@ css:
 ---
 
 {% assign today = "now" | date: "%Y-%m-%d" %}
-{% assign current_month = today | date: "%m" %}
+{% assign today_parts = today | split: '-' %}
+{% assign current_month = today_parts[1] %}
 <!-- Today: {{ today }} -->
+<!--current_month: {{ current_month }} -->
 
 {% if current_month == "11" %}
 {% include '_countdown-clock.liquid', targetDate:'2026-10-31'%}
@@ -25,6 +27,7 @@ css:
         {% endif %}
     </div>
 </section>
+{% endif %}
 
 {% include '_calendar.liquid', year: 2025, monthStartsOnWeekday: 3, subtitle: "Celebrating 5 years of Weens", dataSet:
 weening2025, customCss: '2025.css', today:today, key_icon:'/assets/img/weening-skull-black.svg' %}
@@ -84,5 +87,3 @@ weening2025, customCss: '2025.css', today:today, key_icon:'/assets/img/weening-s
         }
     }
 </style>
-
-{% endif %}

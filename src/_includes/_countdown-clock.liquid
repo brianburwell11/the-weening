@@ -147,7 +147,7 @@
 
     if (timeDifference > 0) {
       // Calculate days
-      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24)) + 1;
 
       // Update the display with individual digits
       const daysStr = days.toString().padStart(3, '0');
